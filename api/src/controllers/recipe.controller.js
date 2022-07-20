@@ -2,6 +2,7 @@ const axios = require("axios");
 require("dotenv").config();
 const { API_KEY } = process.env;
 const { Recipe, Diet } = require("../db");
+const { getDiets } = require("./diet.controller.js");
 
 function getRecipes(req, res, next) {
   const nameQuery = req.query.name;
@@ -41,6 +42,39 @@ function getRecipes(req, res, next) {
   }
 }
 
+async function createRecipe(req, res, next) {
+  let { title, summary, healthScore, analyzedInstructions, image, diets } = req.body;
+
+  // getDiets();
+  if (!title || !summary) return "Missing title or description";
+
+  try {
+    let createdRecipe = await Recipe.create({
+      title: title,
+      image: image || "",
+      summary: summary,
+      healthScore: healthScore,
+      analyzedInstructions: analyzedInstructions || "",
+      createdInDb: true,
+    });
+
+    let dietDb = await Diet.findAll({
+      where: {
+        name: diets,
+      },
+    });
+    createdRecipe.addDiet(dietDb);
+
+    return res.status(201).json({
+      message: "Recipe created successfully",
+    });
+  } catch (error) {
+    // res.status(404).send("error");
+    next(error);
+  }
+}
+
 module.exports = {
   getRecipes,
+  createRecipe,
 };

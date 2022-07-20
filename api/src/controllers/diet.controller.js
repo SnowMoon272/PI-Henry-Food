@@ -1,33 +1,30 @@
-const axios = require("axios");
-require("dotenv").config();
-const { API_KEY } = process.env;
-const { Diets } = require("../db");
+const { Diet } = require("../db");
 
 let diets = [
-  { name: "gluten free" },
-  { name: "ketogenic" },
-  { name: "vegetarian" },
-  { name: "lacto-vegetarian" },
-  { name: "lacto ovo vegetarian" },
-  { name: "vegan" },
-  { name: "pescatarian" },
-  { name: "paleolithic" },
-  { name: "primal" },
-  { name: "whole 30" },
+  { name: "Gluten Free" },
+  { name: "Ketogenic" },
+  { name: "Vegetarian" },
+  { name: "Lacto-Vegetarian" },
+  { name: "Ovo-Vegetarian" },
+  { name: "Vegan" },
+  { name: "Pescetarian" },
+  { name: "Paleo" },
+  { name: "Primal" },
+  { name: "Low FODMAP" },
+  { name: "Whole30" },
 ];
 
 async function getDiets(req, res, next) {
   try {
-    diets.forEach((element) => {
-      Diets.findOrCreate({
-        where: { name: element.name },
-      });
-    });
-
-    const allDiets = await Diets.findAll();
-    res.send(allDiets.map((element) => element.name));
+    let findDiet = await Diet.findAll();
+    if (findDiet.length > 0) {
+      return res.status(200).json(findDiet);
+    } else {
+      let newDiets = await Diet.bulkCreate(diets);
+      return res.status(200).json(newDiets);
+    }
   } catch (error) {
-    return next(error);
+    next(error);
   }
 }
 
