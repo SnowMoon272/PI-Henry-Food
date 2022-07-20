@@ -22,6 +22,9 @@ function getRecipes(req, res, next) {
         RecipesDb = localResponse.filter((recipe) => {
           return recipe.title.toLowerCase().includes(nameQuery.toLowerCase());
         });
+        if (!RecipesApi.length && !RecipesDb.length) {
+          return res.status(404).send("The search returned no results");
+        }
         return res.status(200).json([...RecipesDb, ...RecipesApi].slice(0, 9));
       })
       .catch((error) => next(error));
@@ -44,8 +47,8 @@ function getRecipes(req, res, next) {
 async function createRecipe(req, res, next) {
   let { title, summary, healthScore, analyzedInstructions, image, diets } = req.body;
 
-  if (!title || !summary) return "Missing title or description";
-
+  if (!title || !summary || !diets)
+    return res.status(404).send(`The "title", the type of "diet" or the "summary" are missing.`);
   try {
     let createdRecipe = await Recipe.create({
       title: title,
