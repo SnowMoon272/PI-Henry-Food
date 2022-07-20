@@ -2,7 +2,6 @@ const axios = require("axios");
 require("dotenv").config();
 const { API_KEY } = process.env;
 const { Recipe, Diet } = require("../db");
-const { getDiets } = require("./diet.controller.js");
 
 function getRecipes(req, res, next) {
   const nameQuery = req.query.name;
@@ -45,7 +44,6 @@ function getRecipes(req, res, next) {
 async function createRecipe(req, res, next) {
   let { title, summary, healthScore, analyzedInstructions, image, diets } = req.body;
 
-  // getDiets();
   if (!title || !summary) return "Missing title or description";
 
   try {
@@ -74,7 +72,32 @@ async function createRecipe(req, res, next) {
   }
 }
 
+function getRecipeById(req, res, next) {
+  const id = req.params.idReceta;
+  if (id.includes("-")) {
+    Recipe.findByPk(id, { include: Diet }).then((recipe) => {
+      return res.status(200).json(recipe);
+    });
+  } else {
+    axios
+      .get(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY}`)
+      .then((response) => {
+        return res.status(200).json({
+          title: response.data.title,
+          image: response.data.image,
+          dishTypes: response.data.dishTypes,
+          diets: response.data.diets,
+          summary: response.data.summary,
+          healthScore: response.data.healthScore,
+          analyzedInstructions: response.data.analyzedInstructions[0].steps,
+        });
+      })
+      .catch((error) => next(error));
+  }
+}
+// "a06e3540-d24d-47ec-a1f7-129a980eee44"
 module.exports = {
   getRecipes,
   createRecipe,
+  getRecipeById,
 };
