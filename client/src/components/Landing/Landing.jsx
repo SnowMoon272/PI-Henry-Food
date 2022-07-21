@@ -1,32 +1,22 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { LinkStayled } from "../Styles/LinkStyled";
 
 const LandingStyle = styled.div`
-  border: 3px solid red;
-  padding: 2rem;
-  background-color: white;
-  width: 100%;
-  max-width: 90vw;
-  height: fit-content;
-  display: flex;
-  align-self: center;
-  justify-content: space-around;
-  flex-wrap: wrap;
-
-  @media (max-width: 990px) {
-    justify-content: center;
-  }
+  background-color: aqua;
+  height: 100%;
 `;
 
 function Landing() {
   return (
-    <LandingStyle>
-      <h1>Hola</h1>
-      <Link to="/home">
-        <button>Ingresar</button>
-      </Link>
-    </LandingStyle>
+    <>
+      <LandingStyle>
+        <h1>Hola</h1>
+        <LinkStayled to="/home">
+          <button>Ingresar</button>
+        </LinkStayled>
+      </LandingStyle>
+    </>
   );
 }
 
