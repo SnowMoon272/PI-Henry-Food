@@ -49,6 +49,7 @@ async function createRecipe(req, res, next) {
 
   if (!title || !summary || !diets)
     return res.status(404).send(`The "title", the type of "diet" or the "summary" are missing.`);
+
   try {
     let createdRecipe = await Recipe.create({
       title: title,
