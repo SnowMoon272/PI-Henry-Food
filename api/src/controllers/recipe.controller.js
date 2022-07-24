@@ -25,7 +25,7 @@ function getRecipes(req, res, next) {
         if (!RecipesApi.length && !RecipesDb.length) {
           return res.status(404).send("The search returned no results");
         }
-        return res.status(200).json([...RecipesDb, ...RecipesApi].slice(0, 9));
+        return res.status(200).json([...RecipesDb, ...RecipesApi] /* .slice(0, 9) */);
       })
       .catch((error) => next(error));
   } else {

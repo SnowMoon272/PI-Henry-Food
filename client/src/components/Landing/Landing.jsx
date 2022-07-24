@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { LinkStayled } from "../Styles/LinkStyled";
+import LinkStayled from "../Styles/LinkStyled";
 import BGimg from "../../img/fondoManu.jpg";
 
 const LandingStyle = styled.div`
@@ -27,15 +27,13 @@ const LandingStyle = styled.div`
 
 function Landing() {
   return (
-    <>
-      <LandingStyle>
-        <div>
-          <LinkStayled to="/home">
-            <button>Welcome</button>
-          </LinkStayled>
-        </div>
-      </LandingStyle>
-    </>
+    <LandingStyle>
+      <div>
+        <LinkStayled to="/home">
+          <button type="button">Welcome</button>
+        </LinkStayled>
+      </div>
+    </LandingStyle>
   );
 }
 

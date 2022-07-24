@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-export const LinkStayled = styled(Link)`
+const LinkStayled = styled(Link)`
   /* width: 100px;
   height: 100px; */
 
@@ -26,3 +26,5 @@ export const LinkStayled = styled(Link)`
     }
   }
 `;
+
+export default LinkStayled;

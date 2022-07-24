@@ -4,16 +4,15 @@ const initiaState = {
   recipes: [],
 };
 
-function rootReducer(action, state = initiaState) {
+function rootReducer(state = initiaState, action) {
   switch (action.type) {
     case GET_RECIPES:
       return {
         ...state,
         recipes: action.payload,
       };
-
     default:
-      break;
+      return state;
   }
 }
 
