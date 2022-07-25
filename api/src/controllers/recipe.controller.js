@@ -57,7 +57,6 @@ async function createRecipe(req, res, next) {
       summary: summary,
       healthScore: healthScore,
       analyzedInstructions: analyzedInstructions || "",
-      createdInDb: true,
     });
 
     let dietDb = await Diet.findAll({

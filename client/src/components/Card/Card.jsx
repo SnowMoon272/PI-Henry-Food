@@ -1,10 +1,10 @@
+/* eslint-disable no-restricted-syntax */
 import React from "react";
 
 function Card({ title, image, diets }) {
   const getDiets = function () {
     const onlyDiets = [];
     if (diets) {
-      // eslint-disable-next-line no-restricted-syntax
       for (const diet of diets) {
         typeof diet === "object" ? onlyDiets.push(diet.name) : onlyDiets.push(diet);
       }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getRecipes } from "../../redux/actions";
+import { getRecipes, filterByDiet } from "../../redux/actions";
 import LinkStayled from "../Styles/LinkStyled";
 import Card from "../Card/Card";
 import Paginado from "../Paginado/Paginado";
@@ -12,7 +12,7 @@ function Home() {
 
   /* **************************************** PAGINADO **************************************** */
   const [currentPage, setcurrentPage] = useState(1);
-  const [recipesPerPage, setrecipesPerPage] = useState(9); //Si no se setea el estado cambiar a solo una variable.
+  const recipesPerPage = 9;
   const indexOfLastRecipe = currentPage * recipesPerPage;
   const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
   const currentRicipes = allRecipes.slice(indexOfFirstRecipe, indexOfLastRecipe);
@@ -24,42 +24,49 @@ function Home() {
     dispatch(getRecipes());
   }, [dispatch]);
 
-  function hadlerClick(e) {
+  function handlerClick(e) {
     e.preventDefault();
     dispatch(getRecipes());
+  }
+
+  function handlerFilterByDiet(e) {
+    dispatch(filterByDiet(e.target.value));
   }
 
   return (
     <div>
       <LinkStayled to="/recipe">Create Recipe</LinkStayled>
       <h1>Recetas more famouse</h1>
-      <button type="button" onClick={(e) => hadlerClick(e)}>
+      <button type="button" onClick={(e) => handlerClick(e)}>
         Volver a cargar todos los personajes
       </button>
       <div>
-        <select name="name" id="">
+        <select name="name">
           <option value="asc">Acendente-[A-Z]</option>
           <option value="des">Decendente-[Z-A]</option>
         </select>
 
-        <select name="healtSchore" id="">
+        <select name="healtSchore">
           <option value="asc">(+) Healthier</option>
           <option value="des">(-) Healthier</option>
         </select>
 
-        <select name="typeOfDiet" id="">
+        <select name="typeOfDiet" onChange={(e) => handlerFilterByDiet(e)}>
           <option value="All">All recipes</option>
-          <option value="gluten_free">Gluten Free</option>
-          <option value="ketogenic">Ketogenic</option>
-          <option value="vegetarian">Vegetarian </option>
-          <option value="lacto_vegetarian">Lacto-Vegetarian </option>
-          <option value="lacto_ovo_vegetarian">Ovo-Vegetarian</option>
+          <option value="gluten free">Gluten Free</option>
+          <option value="dairy free">Dairy Free</option>
+          <option value="vegetarian">Vegetarian</option>
+          <option value="lacto vegetarian">Lacto Vegetarian </option>
+          <option value="lacto ovo vegetarian">Ovo Vegetarian</option>
+          <option value="lacto ovo vegetarian">Lacto Ovo Vegetarian</option>
           <option value="vegan">Vegan</option>
-          <option value="pescetarian">Pescetarian</option>
-          <option value="paleo">Paleo</option>
+          <option value="paleolithic">Paleolithic</option>
           <option value="primal">Primal</option>
+          <option value="whole 30">Whole 30</option>
+          <option value="pescatarian">Pescatarian</option>
+          <option value="ketogenic">Ketogenic</option>
+          <option value="fodmap friendly">Fodmap Friendly</option>
           <option value="Low_FODMAP">Low FODMAP</option>
-          <option value="whole30">Whole30</option>
         </select>
 
         <Paginado
