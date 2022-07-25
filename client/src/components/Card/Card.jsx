@@ -1,5 +1,13 @@
 /* eslint-disable no-restricted-syntax */
 import React from "react";
+import styled from "styled-components";
+
+const CardStyle = styled.div`
+  background-color: aqua;
+  width: 350px;
+  height: 400px;
+  margin-bottom: 25px;
+`;
 
 function Card({ title, image, diets }) {
   const getDiets = function () {
@@ -13,7 +21,7 @@ function Card({ title, image, diets }) {
   };
 
   return (
-    <div>
+    <CardStyle>
       <img
         src={image}
         style={{ objectFit: "cover" }}
@@ -23,7 +31,7 @@ function Card({ title, image, diets }) {
       />
       <h2>{title}</h2>
       <h4>{getDiets()}</h4>
-    </div>
+    </CardStyle>
   );
 }
 

@@ -1,9 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getRecipes, filterByDiet } from "../../redux/actions";
+import styled from "styled-components";
+import { getRecipes, filterByDiet, orderByTitle, orderByHealtSchore } from "../../redux/actions";
 import LinkStayled from "../Styles/LinkStyled";
 import Card from "../Card/Card";
 import Paginado from "../Paginado/Paginado";
+import Header from "../Header/NavBar";
+
+const HomeContainerStyle = styled.div`
+  width: 100%;
+  height: 100%;
+`;
 
 function Home() {
   /* ***************************************** REDUX **************************************** */
@@ -11,15 +18,18 @@ function Home() {
   const allRecipes = useSelector((state) => state.recipes);
 
   /* **************************************** PAGINADO **************************************** */
-  const [currentPage, setcurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
   const recipesPerPage = 9;
   const indexOfLastRecipe = currentPage * recipesPerPage;
   const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
   const currentRicipes = allRecipes.slice(indexOfFirstRecipe, indexOfLastRecipe);
   const paginado = (pageNumber) => {
-    setcurrentPage(pageNumber);
+    setCurrentPage(pageNumber);
   };
+  /* ************************************** ORDENAMIENTO ************************************** */
+  const [order, setOrder] = useState("");
 
+  /* **************************************** HANDLERS **************************************** */
   useEffect(() => {
     dispatch(getRecipes());
   }, [dispatch]);
@@ -31,24 +41,43 @@ function Home() {
 
   function handlerFilterByDiet(e) {
     dispatch(filterByDiet(e.target.value));
+    setCurrentPage(1);
   }
 
+  function handlerOrderByTitle(e) {
+    e.preventDefault();
+    dispatch(orderByTitle(e.target.value));
+    setCurrentPage(1);
+    setOrder(`Order by Title : ${e.target.value}`);
+  }
+
+  function handlerOrderByHealtSchore(e) {
+    e.preventDefault();
+    dispatch(orderByHealtSchore(e.target.value));
+    setCurrentPage(1);
+    setOrder(`Order by HealtSchore : ${e.target.value}`);
+  }
+
+  /* ******************************************* JSX ******************************************* */
   return (
-    <div>
+    <HomeContainerStyle>
+      <Header />
       <LinkStayled to="/recipe">Create Recipe</LinkStayled>
       <h1>Recetas more famouse</h1>
       <button type="button" onClick={(e) => handlerClick(e)}>
         Volver a cargar todos los personajes
       </button>
       <div>
-        <select name="name">
+        <select name="ttitle" onChange={(e) => handlerOrderByTitle(e)}>
+          <option selected disabled hidden label="Order by Title" />
           <option value="asc">Acendente-[A-Z]</option>
           <option value="des">Decendente-[Z-A]</option>
         </select>
 
-        <select name="healtSchore">
-          <option value="asc">(+) Healthier</option>
-          <option value="des">(-) Healthier</option>
+        <select name="healtSchore" onChange={(e) => handlerOrderByHealtSchore(e)}>
+          <option selected disabled hidden label="Order by HealtSchore" />
+          <option value="asc">(+) Most Healthier</option>
+          <option value="des">(-) Less healthy</option>
         </select>
 
         <select name="typeOfDiet" onChange={(e) => handlerFilterByDiet(e)}>
@@ -87,7 +116,7 @@ function Home() {
           );
         })}
       </div>
-    </div>
+    </HomeContainerStyle>
   );
 }
 

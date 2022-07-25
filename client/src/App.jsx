@@ -3,18 +3,25 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import styled from "styled-components";
 import Landing from "./components/Landing/Landing";
+
 import Home from "./components/Home/Home";
+import BGimgAN from "./img/50350-amarillo-y-negro.jpg";
 
 const AppStyle = styled.div`
+  background-image: url(${BGimgAN});
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
   text-align: center;
   width: 100%;
-  height: 100vh;
+  height: 100%;
 `;
 
 function App() {
   return (
     <BrowserRouter>
       <AppStyle>
+        {/* <Header /> */}
         <Switch>
           <Route exact path="/" component={Landing} />
           <Route path="/home" component={Home} />
