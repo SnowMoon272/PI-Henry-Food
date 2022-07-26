@@ -14,7 +14,7 @@ const LandingStyle = styled.div`
 
   div {
     position: relative;
-    margin: 42% 0% 0% 13%;
+    margin: 42% 0% 0% 14.2%;
     width: fit-content;
   }
 

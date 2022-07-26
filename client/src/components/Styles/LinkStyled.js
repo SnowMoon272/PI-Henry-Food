@@ -2,9 +2,6 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const LinkStayled = styled(Link)`
-  /* width: 100px;
-  height: 100px; */
-
   button {
     font-family: "Dancing Script", cursive;
     padding: 6px 62px;
@@ -17,7 +14,6 @@ const LinkStayled = styled(Link)`
     transition: all 1.5s ease;
 
     &:hover {
-      /* box-shadow: inset 200px 0 0 0 #fecd08a3; */
       transform: scale(1.2);
       cursor: pointer;
       color: white;

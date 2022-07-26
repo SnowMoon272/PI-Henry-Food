@@ -21,7 +21,6 @@ function App() {
   return (
     <BrowserRouter>
       <AppStyle>
-        {/* <Header /> */}
         <Switch>
           <Route exact path="/" component={Landing} />
           <Route path="/home" component={Home} />

@@ -4,24 +4,26 @@ import { Provider } from "react-redux";
 import { createGlobalStyle } from "styled-components";
 import reportWebVitals from "./reportWebVitals";
 import { store } from "./redux/store/index";
+import BGimgAN from "./img/50350-amarillo-y-negro.jpg";
 import App from "./App";
 
 const GlobalStyle = createGlobalStyle`
   html {
   box-sizing: border-box;
-  height: 100%;
-  font-size: 62.5%;
+    font-size: 62.5%;
 }
 
 body {
-  margin: 0;
+  font-family: "Dancing Script", cursive;
+  background-image: url(${BGimgAN});
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
   box-sizing: border-box;
-  height: 100%;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
-    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: white;
+
 }
 `;
 

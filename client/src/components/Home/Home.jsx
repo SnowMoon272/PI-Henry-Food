@@ -7,8 +7,96 @@ import Card from "../Card/Card";
 import Paginado from "../Paginado/Paginado";
 import Header from "../Header/NavBar";
 
+const HeaderStyleCont = styled.div`
+  padding-bottom: 80px;
+`;
+
 const HomeContainerStyle = styled.div`
   width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const SectionStyleCont = styled.section`
+  background-color: #af911a;
+  border-radius: 55px;
+  position: fixed;
+  top: 0px;
+  display: flex;
+  width: 750px;
+  height: fit-content;
+  flex-direction: column;
+  justify-content: center;
+
+  & h1 {
+    font-family: "Dancing Script", cursive;
+    font-weight: bold;
+    font-size: 20px;
+  }
+`;
+
+const ButtonsStyleCont = styled.section`
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 10px;
+
+  & button {
+    font-family: "Dancing Script", cursive;
+    padding: 6px 62px;
+    cursor: pointer;
+    font-size: 3rem;
+    color: black;
+    border: 2px solid white;
+    border-radius: 25px;
+    background-color: #c3b374;
+    transition: all 1.5s ease;
+
+    &:hover {
+      /* box-shadow: inset 200px 0 0 0 #fecd08a3; */
+      transform: scale(1.2);
+      cursor: pointer;
+      color: white;
+      background-color: #fecd08a3;
+      border: 0.2px solid #fecd08a3;
+    }
+  }
+`;
+
+const SelectStyleCont = styled.section`
+  display: flex;
+  justify-content: space-around;
+
+  & select {
+    font-family: "Dancing Script", cursive;
+    font-size: medium;
+    background-color: #c3b374;
+    border: 2px solid white;
+    border-radius: 25px;
+    padding: 0px 12px;
+    appearance: none;
+    outline: none;
+    transition: all 0.5s ease;
+    text-align: center;
+
+    &:hover {
+      transform: scale(1.2);
+      cursor: pointer;
+      color: #030303;
+      background-color: #fecd08a3;
+      border: 0.2px solid #fecd08a3;
+      text-align: center;
+    }
+  }
+`;
+
+const CardStyleCont = styled.section`
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 200px;
+  width: 90%;
   height: 100%;
 `;
 
@@ -60,63 +148,78 @@ function Home() {
 
   /* ******************************************* JSX ******************************************* */
   return (
-    <HomeContainerStyle>
-      <Header />
-      <LinkStayled to="/recipe">Create Recipe</LinkStayled>
-      <h1>Recetas more famouse</h1>
-      <button type="button" onClick={(e) => handlerClick(e)}>
-        Volver a cargar todos los personajes
-      </button>
-      <div>
-        <select name="ttitle" onChange={(e) => handlerOrderByTitle(e)}>
-          <option selected disabled hidden label="Order by Title" />
-          <option value="asc">Acendente-[A-Z]</option>
-          <option value="des">Decendente-[Z-A]</option>
-        </select>
+    <>
+      <HeaderStyleCont>
+        <Header />
+      </HeaderStyleCont>
+      <HomeContainerStyle>
+        <SectionStyleCont>
+          <h1>Recipes more famouse</h1>
+          <ButtonsStyleCont>
+            <button type="button" style={{ width: "300px" }} onClick={(e) => handlerClick(e)}>
+              Refresh Recipes
+            </button>
+            <LinkStayled to="/recipe">
+              <button type="button" style={{ width: "300px" }}>
+                Create Recipe
+              </button>
+            </LinkStayled>
+          </ButtonsStyleCont>
 
-        <select name="healtSchore" onChange={(e) => handlerOrderByHealtSchore(e)}>
-          <option selected disabled hidden label="Order by HealtSchore" />
-          <option value="asc">(+) Most Healthier</option>
-          <option value="des">(-) Less healthy</option>
-        </select>
+          <SelectStyleCont>
+            <select name="ttitle" onChange={(e) => handlerOrderByTitle(e)}>
+              <option selected disabled hidden label="Order by Title" />
+              <option value="asc">Acendente-[A-Z]</option>
+              <option value="des">Decendente-[Z-A]</option>
+            </select>
 
-        <select name="typeOfDiet" onChange={(e) => handlerFilterByDiet(e)}>
-          <option value="All">All recipes</option>
-          <option value="gluten free">Gluten Free</option>
-          <option value="dairy free">Dairy Free</option>
-          <option value="vegetarian">Vegetarian</option>
-          <option value="lacto vegetarian">Lacto Vegetarian </option>
-          <option value="lacto ovo vegetarian">Ovo Vegetarian</option>
-          <option value="lacto ovo vegetarian">Lacto Ovo Vegetarian</option>
-          <option value="vegan">Vegan</option>
-          <option value="paleolithic">Paleolithic</option>
-          <option value="primal">Primal</option>
-          <option value="whole 30">Whole 30</option>
-          <option value="pescatarian">Pescatarian</option>
-          <option value="ketogenic">Ketogenic</option>
-          <option value="fodmap friendly">Fodmap Friendly</option>
-          <option value="Low_FODMAP">Low FODMAP</option>
-        </select>
+            <select name="healtSchore" onChange={(e) => handlerOrderByHealtSchore(e)}>
+              <option selected disabled hidden label="Order by HealtSchore" />
+              <option value="asc">(+) Most Healthier</option>
+              <option value="des">(-) Less healthy</option>
+            </select>
 
-        <Paginado
-          recipesPerPage={recipesPerPage}
-          allRecipes={allRecipes.length}
-          paginado={paginado}
-        />
+            <select name="typeOfDiet" onChange={(e) => handlerFilterByDiet(e)}>
+              <option value="All">All recipes</option>
+              <option value="gluten free">Gluten Free</option>
+              <option value="dairy free">Dairy Free</option>
+              <option value="vegetarian">Vegetarian</option>
+              <option value="lacto vegetarian">Lacto Vegetarian </option>
+              <option value="lacto ovo vegetarian">Ovo Vegetarian</option>
+              <option value="lacto ovo vegetarian">Lacto Ovo Vegetarian</option>
+              <option value="vegan">Vegan</option>
+              <option value="paleolithic">Paleolithic</option>
+              <option value="primal">Primal</option>
+              <option value="whole 30">Whole 30</option>
+              <option value="pescatarian">Pescatarian</option>
+              <option value="ketogenic">Ketogenic</option>
+              <option value="fodmap friendly">Fodmap Friendly</option>
+              <option value="Low_FODMAP">Low FODMAP</option>
+            </select>
+          </SelectStyleCont>
 
-        {currentRicipes?.map((recipe) => {
-          return (
-            <Card
-              key={recipe.id}
-              id={recipe.id}
-              title={recipe.title}
-              image={recipe.image}
-              diets={recipe.diets}
-            />
-          );
-        })}
-      </div>
-    </HomeContainerStyle>
+          <Paginado
+            recipesPerPage={recipesPerPage}
+            allRecipes={allRecipes.length}
+            paginado={paginado}
+            currentPage={currentPage}
+          />
+        </SectionStyleCont>
+        <CardStyleCont>
+          {currentRicipes?.map((recipe) => {
+            return (
+              <Card
+                key={recipe.id}
+                id={recipe.id}
+                title={recipe.title}
+                image={recipe.image}
+                diets={recipe.diets}
+              />
+            );
+          })}
+        </CardStyleCont>
+      </HomeContainerStyle>
+    </>
   );
 }
 
