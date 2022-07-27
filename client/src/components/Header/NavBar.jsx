@@ -12,6 +12,7 @@ const HeaderStyle = styled.header`
   height: fit-content;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding-left: 15px;
   padding-top: 3px;
 
@@ -28,16 +29,21 @@ const ImgStyle = styled.img`
 `;
 
 function NavBar() {
+  const url = window.location.href;
   return (
     <HeaderStyle>
       <LinkStayled to="/">
         <ImgStyle src={LGimg} alt="Logo" />
       </LinkStayled>
-      <div>
-        <nav>
+      <nav>
+        {url === "http://localhost:3000/home" ? (
           <SerachBar />
-        </nav>
-      </div>
+        ) : (
+          <LinkStayled Return to="/home">
+            <button type="button">Return</button>
+          </LinkStayled>
+        )}
+      </nav>
     </HeaderStyle>
   );
 }

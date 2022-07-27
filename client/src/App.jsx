@@ -1,10 +1,9 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-
 import styled from "styled-components";
 import Landing from "./components/Landing/Landing";
-
 import Home from "./components/Home/Home";
+import Form from "./components/Form/Form";
 import BGimgAN from "./img/50350-amarillo-y-negro.jpg";
 
 const AppStyle = styled.div`
@@ -24,6 +23,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={Landing} />
           <Route path="/home" component={Home} />
+          <Route path="/recipe" component={Form} />
         </Switch>
       </AppStyle>
     </BrowserRouter>

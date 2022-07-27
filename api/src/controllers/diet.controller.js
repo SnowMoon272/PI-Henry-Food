@@ -14,7 +14,7 @@ async function getDiets(req, res, next) {
   try {
     let findDiet = await Diet.findAll();
     if (findDiet.length > 0) {
-      return res.status(200).send("!!! Success !!! ==>> The diet table has already been created");
+      return res.status(200).json(findDiet);
     } else {
       let diets = [];
       let response = await axios.get(

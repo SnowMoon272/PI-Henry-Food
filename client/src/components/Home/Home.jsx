@@ -5,7 +5,7 @@ import { getRecipes, filterByDiet, orderByTitle, orderByHealtSchore } from "../.
 import LinkStayled from "../Styles/LinkStyled";
 import Card from "../Card/Card";
 import Paginado from "../Paginado/Paginado";
-import Header from "../Header/NavBar";
+import NavBar from "../Header/NavBar";
 
 const HeaderStyleCont = styled.div`
   padding-bottom: 80px;
@@ -150,7 +150,7 @@ function Home() {
   return (
     <>
       <HeaderStyleCont>
-        <Header />
+        <NavBar />
       </HeaderStyleCont>
       <HomeContainerStyle>
         <SectionStyleCont>

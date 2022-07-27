@@ -1,9 +1,18 @@
+/* eslint-disable comma-dangle */
 /* eslint-disable indent */
-import { GET_RECIPES, FILTER_BY_DIET, ORDER_BY_TITLE, ORDER_BY_HEALTSCHORE } from "../actions";
+import {
+  GET_RECIPES,
+  FILTER_BY_DIET,
+  ORDER_BY_TITLE,
+  ORDER_BY_HEALTSCHORE,
+  GET_TITLE_RECIPES,
+  GET_DIETS,
+} from "../actions";
 
 const initiaState = {
   recipes: [],
   allRecipes: [],
+  diets: [],
 };
 
 function rootReducer(state = initiaState, action) {
@@ -18,6 +27,23 @@ function rootReducer(state = initiaState, action) {
         ...state,
         recipes: action.payload,
         allRecipes: action.payload,
+      };
+
+    case GET_DIETS:
+      return {
+        ...state,
+        diets: action.payload,
+      };
+
+    case "POST_RECIPE":
+      return {
+        ...state,
+      };
+
+    case GET_TITLE_RECIPES:
+      return {
+        ...state,
+        recipes: action.payload,
       };
 
     case FILTER_BY_DIET:

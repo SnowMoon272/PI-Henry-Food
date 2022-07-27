@@ -2,13 +2,14 @@
 import React from "react";
 import styled from "styled-components";
 import LinkStayled from "../Styles/LinkStyled";
+import imgDefaul from "../../img/fondoManu.jpg";
 
 const CardStyle = styled.div`
   border-top-right-radius: 60px;
   border-end-start-radius: 60px;
   background: linear-gradient(312deg, rgba(255, 204, 0, 1) 5%, rgba(143, 118, 22, 1) 33%);
   width: 450px;
-  height: 450px;
+  height: 530px;
   margin: 45px 50px;
   overflow: hidden;
 
@@ -25,7 +26,7 @@ const CardStyle = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    height: 217px;
+    height: 55%;
 
     h2 {
       margin-top: 10px;
@@ -38,21 +39,14 @@ const CardStyle = styled.div`
       padding: 0px 25px;
     }
 
-    button {
-      font-family: "Dancing Script", cursive;
-      display: flex;
-      align-self: flex-end;
-      justify-self: flex-end;
-      align-items: center;
-      justify-content: center;
-      margin: 0px 15px 15px 0px;
+    #BTN-CArd {
+      margin: 0px 0px 15px 0px;
       padding: 4px 28px;
       font-size: 2.5rem;
       background-color: #c3b374;
       border: 2px solid white;
       border-radius: 25px;
       transition: all 0.5s ease;
-      text-align: center;
 
       &:hover {
         transform: scale(1.2);
@@ -60,7 +54,6 @@ const CardStyle = styled.div`
         color: #030303;
         background-color: #fecd08a3;
         border: 0.2px solid #fecd08a3;
-        text-align: center;
       }
     }
   }
@@ -82,12 +75,14 @@ function Card({ title, image, diets }) {
 
   return (
     <CardStyle>
-      <img src={image} alt="img not foud" />
+      <img src={image || imgDefaul} alt="img not foud" />
       <div>
         <h2>{title}</h2>
         <h3>{getDiets()}</h3>
-        <LinkStayled>
-          <button type="button">Learn More</button>
+        <LinkStayled to="/detail">
+          <button id="BTN-CArd" type="button">
+            Learn More
+          </button>
         </LinkStayled>
       </div>
     </CardStyle>
