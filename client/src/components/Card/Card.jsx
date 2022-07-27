@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 /* eslint-disable no-restricted-syntax */
 import React from "react";
 import styled from "styled-components";
@@ -12,6 +13,7 @@ const CardStyle = styled.div`
   height: 530px;
   margin: 45px 50px;
   overflow: hidden;
+  box-shadow: 5px 5px 13px 9px rgba(0, 0, 0, 0.45);
 
   img {
     object-fit: cover;
@@ -40,6 +42,7 @@ const CardStyle = styled.div`
     }
 
     #BTN-CArd {
+      font-family: "Dancing Script", cursive;
       margin: 0px 0px 15px 0px;
       padding: 4px 28px;
       font-size: 2.5rem;
@@ -60,6 +63,7 @@ const CardStyle = styled.div`
 `;
 
 function Card({ title, image, diets }) {
+  const url = window.location.href;
   const getDiets = function () {
     const onlyDiets = [];
     if (diets) {
@@ -78,12 +82,24 @@ function Card({ title, image, diets }) {
       <img src={image || imgDefaul} alt="img not foud" />
       <div>
         <h2>{title}</h2>
-        <h3>{getDiets()}</h3>
-        <LinkStayled to="/detail">
+        <h3>
+          {url === "http://localhost:3000/recipe"
+            ? diets.map((diet) => {
+                return ` ${diet.charAt(0).toUpperCase() + diet.slice(1)} |`;
+              })
+            : getDiets()}
+        </h3>
+        {url !== "http://localhost:3000/recipe" ? (
+          <LinkStayled to="/detail">
+            <button id="BTN-CArd" type="button">
+              Learn More
+            </button>
+          </LinkStayled>
+        ) : (
           <button id="BTN-CArd" type="button">
-            Learn More
+            Example
           </button>
-        </LinkStayled>
+        )}
       </div>
     </CardStyle>
   );

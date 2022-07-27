@@ -38,6 +38,7 @@ const UlStyle = styled.ul`
 
 function Paginado({ recipesPerPage, allRecipes, paginado, currentPage }) {
   const pageNumbers = [];
+
   function romanize(num) {
     const lookup = {
       M: 1000,

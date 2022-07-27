@@ -7,6 +7,7 @@ import Card from "../Card/Card";
 import Paginado from "../Paginado/Paginado";
 import NavBar from "../Header/NavBar";
 
+/* ****************************************** CSS ***************************************** */
 const HeaderStyleCont = styled.div`
   padding-bottom: 80px;
 `;
