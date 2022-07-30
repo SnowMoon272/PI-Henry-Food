@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Landing from "./components/Landing/Landing";
 import Home from "./components/Home/Home";
 import Form from "./components/Form/Form";
+import Detail from "./components/Detail/Detail";
 import BGimgAN from "./img/50350-amarillo-y-negro.jpg";
 
 const AppStyle = styled.div`
@@ -24,6 +25,7 @@ function App() {
           <Route exact path="/" component={Landing} />
           <Route path="/home" component={Home} />
           <Route path="/recipe" component={Form} />
+          <Route path="/detail/:id" component={Detail} />
         </Switch>
       </AppStyle>
     </BrowserRouter>

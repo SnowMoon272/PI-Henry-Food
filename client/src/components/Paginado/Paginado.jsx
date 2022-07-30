@@ -14,7 +14,7 @@ const UlStyle = styled.ul`
     list-style: none;
   }
 
-  & li button {
+  & button {
     cursor: pointer;
     width: 40px;
     padding: 2px;
@@ -27,7 +27,7 @@ const UlStyle = styled.ul`
     background-color: #fff4c7;
   }
 
-  & li button:hover {
+  & button:hover {
     transform: scale(1.5);
     cursor: pointer;
     background-color: #fecd08a3;
@@ -70,19 +70,29 @@ function Paginado({ recipesPerPage, allRecipes, paginado, currentPage }) {
     pageNumbers.push(i);
   }
   return (
-    <nav>
-      <UlStyle>
-        {pageNumbers?.map((number) => {
-          return (
-            <li key={number}>
-              <button type="button" onClick={() => paginado(number)}>
-                {currentPage === number ? "*" : romanize(number)}
-              </button>
-            </li>
-          );
-        })}
-      </UlStyle>
-    </nav>
+    <UlStyle>
+      <button
+        type="button"
+        onClick={() => paginado(currentPage === 1 ? currentPage : currentPage - 1)}
+      >
+        {"<"}
+      </button>
+      {pageNumbers?.map((number) => {
+        return (
+          <li key={number}>
+            <button type="button" onClick={() => paginado(number)}>
+              {currentPage === number ? "*" : romanize(number)}
+            </button>
+          </li>
+        );
+      })}
+      <button
+        type="button"
+        onClick={() => paginado(currentPage === pageNumbers.length ? currentPage : currentPage + 1)}
+      >
+        {">"}
+      </button>
+    </UlStyle>
   );
 }
 

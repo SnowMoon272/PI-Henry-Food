@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
@@ -26,7 +27,7 @@ const SectionStyleCont = styled.section`
   position: fixed;
   top: 0px;
   display: flex;
-  width: 750px;
+  width: 830px;
   height: fit-content;
   flex-direction: column;
   justify-content: center;
@@ -151,7 +152,7 @@ function Home() {
   return (
     <>
       <HeaderStyleCont>
-        <NavBar />
+        <NavBar paginado={paginado} />
       </HeaderStyleCont>
       <HomeContainerStyle>
         <SectionStyleCont>
@@ -168,7 +169,7 @@ function Home() {
           </ButtonsStyleCont>
 
           <SelectStyleCont>
-            <select name="ttitle" onChange={(e) => handlerOrderByTitle(e)}>
+            <select name="title" onChange={(e) => handlerOrderByTitle(e)}>
               <option selected disabled hidden label="Order by Title" />
               <option value="asc">Acendente-[A-Z]</option>
               <option value="des">Decendente-[Z-A]</option>
@@ -215,6 +216,8 @@ function Home() {
                 title={recipe.title}
                 image={recipe.image}
                 diets={recipe.diets}
+                healthScore={recipe.healthScore}
+                vegetarian={recipe.vegetarian}
               />
             );
           })}

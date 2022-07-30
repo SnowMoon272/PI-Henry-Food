@@ -43,7 +43,7 @@ const HeaderStyle = styled.header`
   }
 `;
 
-function SerachBar() {
+function SerachBar({ paginado }) {
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");
 
@@ -56,6 +56,7 @@ function SerachBar() {
     e.preventDefault();
     dispatch(getTitleRecipes(title));
     setTitle("");
+    paginado(1);
   };
 
   return (

@@ -92,7 +92,7 @@ function getRecipeById(req, res, next) {
           diets: response.data.diets,
           summary: response.data.summary,
           healthScore: response.data.healthScore,
-          analyzedInstructions: response.data.analyzedInstructions[0].steps,
+          analyzedInstructions: response.data.analyzedInstructions,
         });
       })
       .catch((error) => next(error));

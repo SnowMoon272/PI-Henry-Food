@@ -62,10 +62,12 @@ const CardStyle = styled.div`
   }
 `;
 
-function Card({ title, image, diets }) {
+function Card({ title, image, diets, healthScore, vegetarian, id }) {
   const url = window.location.href;
   const getDiets = function () {
     const onlyDiets = [];
+    vegetarian && onlyDiets.push("vegetarian");
+
     if (diets) {
       for (const diet of diets) {
         typeof diet === "object" ? onlyDiets.push(diet.name) : onlyDiets.push(diet);
@@ -89,8 +91,9 @@ function Card({ title, image, diets }) {
               })
             : getDiets()}
         </h3>
+        <h3>{`Health Score :  ${healthScore}%`}</h3>
         {url !== "http://localhost:3000/recipe" ? (
-          <LinkStayled to="/detail">
+          <LinkStayled to={`/detail/${id}`}>
             <button id="BTN-CArd" type="button">
               Learn More
             </button>

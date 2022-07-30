@@ -6,6 +6,7 @@ export const ORDER_BY_TITLE = "ORDER_BY_TITLE";
 export const ORDER_BY_HEALTSCHORE = "ORDER_BY_HEALTSCHORE";
 export const GET_TITLE_RECIPES = "GET_TITLE_RECIPES";
 export const GET_DIETS = "GET_DIETS";
+export const GET_DETAILS = "GET_DETAILS";
 
 export function getRecipes() {
   return async (dispatch) => {
@@ -27,6 +28,20 @@ export function getTitleRecipes(title) {
       const json = await axios.get(`http://localhost:3001/recipes?name=${title}`);
       return dispatch({
         type: GET_TITLE_RECIPES,
+        payload: json.data,
+      });
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
+}
+
+export function getDetails(id) {
+  return async (dispatch) => {
+    try {
+      const json = await axios.get(`http://localhost:3001/recipes/${id}`);
+      return dispatch({
+        type: GET_DETAILS,
         payload: json.data,
       });
     } catch (error) {

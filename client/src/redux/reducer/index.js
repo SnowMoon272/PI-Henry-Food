@@ -7,12 +7,14 @@ import {
   ORDER_BY_HEALTSCHORE,
   GET_TITLE_RECIPES,
   GET_DIETS,
+  GET_DETAILS,
 } from "../actions";
 
 const initiaState = {
   recipes: [],
   allRecipes: [],
   diets: [],
+  detail: [],
 };
 
 function rootReducer(state = initiaState, action) {
@@ -27,6 +29,12 @@ function rootReducer(state = initiaState, action) {
         ...state,
         recipes: action.payload,
         allRecipes: action.payload,
+      };
+
+    case GET_DETAILS:
+      return {
+        ...state,
+        detail: action.payload,
       };
 
     case GET_DIETS:
@@ -48,13 +56,22 @@ function rootReducer(state = initiaState, action) {
 
     case FILTER_BY_DIET:
       allRecipesCopy = state.allRecipes;
-      dietFiltered =
-        action.payload === "All"
-          ? allRecipesCopy
-          : allRecipesCopy.filter((el) =>
-              el.diets.find((e) => (e.name ? e.name === action.payload : e === action.payload))
-            );
 
+      if (action.payload === "All") {
+        dietFiltered = allRecipesCopy;
+      } else if (action.payload === "vegetarian") {
+        dietFiltered = allRecipesCopy
+          .filter((el) => el.vegetarian && el.vegetarian)
+          .concat(
+            allRecipesCopy.filter((el) =>
+              el.diets.find((e) => (e.name ? e.name === action.payload : e === action.payload))
+            )
+          );
+      } else {
+        dietFiltered = allRecipesCopy.filter((el) =>
+          el.diets.find((e) => (e.name ? e.name === action.payload : e === action.payload))
+        );
+      }
       return {
         ...state,
         recipes: dietFiltered,
@@ -91,19 +108,19 @@ function rootReducer(state = initiaState, action) {
         action.payload === "asc"
           ? state.recipes.sort((a, b) => {
               if (a.healthScore > b.healthScore) {
-                return 1;
+                return -1;
               }
               if (b.healthScore > a.healthScore) {
-                return -1;
+                return 1;
               }
               return 0;
             })
           : state.recipes.sort((a, b) => {
               if (a.healthScore > b.healthScore) {
-                return -1;
+                return 1;
               }
               if (b.healthScore > a.healthScore) {
-                return 1;
+                return -1;
               }
               return 0;
             });

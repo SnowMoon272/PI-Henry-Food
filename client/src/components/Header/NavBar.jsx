@@ -28,7 +28,7 @@ const ImgStyle = styled.img`
   width: 70px;
 `;
 
-function NavBar() {
+function NavBar({ paginado }) {
   const url = window.location.href;
   return (
     <HeaderStyle>
@@ -37,9 +37,9 @@ function NavBar() {
       </LinkStayled>
       <nav>
         {url === "http://localhost:3000/home" ? (
-          <SerachBar />
+          <SerachBar paginado={paginado} />
         ) : (
-          <LinkStayled Return to="/home">
+          <LinkStayled ret="true" to="/home">
             <button type="button">Return</button>
           </LinkStayled>
         )}
