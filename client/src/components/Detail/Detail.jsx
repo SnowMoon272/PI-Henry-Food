@@ -1,43 +1,47 @@
+/* eslint-disable indent */
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable react/no-danger */
 /* eslint-disable react/destructuring-assignment */
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { getDetails } from "../../redux/actions/index";
+import { getDetails, resetDetails } from "../../redux/actions/index";
 import NavBar from "../Header/NavBar";
 import imgDefaul from "../../img/fondoManu.jpg";
 
 const H1Style = styled.h1`
   display: inline-block;
-
-  position: relative;
+  position: fixed;
   margin: 0px;
   padding-top: 80px;
   color: white;
   font-size: 5rem;
-  top: -84px;
+  top: -80px;
+  left: 825px;
 `;
 
 const MainStyle = styled.main`
   box-sizing: border-box;
   width: 1400px;
-  height: 100vh;
+  /* height: fit-content; */
   margin: 0px auto;
   color: white;
 `;
 
 const SectionStyleCon = styled.section`
   box-sizing: border-box;
-  /* border: solid #03ff03 3px; */
   width: 100%;
   height: fit-content;
   border-radius: 25px;
   background-color: #0000008f;
+  margin: 150px 0px 100px 0px;
+  padding-bottom: 30px;
 
   & h1 {
+    color: #af911a;
     display: inline-block;
     font-size: 4rem;
-    border-bottom: 3px solid #fff;
+    border-bottom: 3px solid #af911a;
   }
   & .Img-Summary {
     display: flex;
@@ -50,16 +54,89 @@ const SectionStyleCon = styled.section`
       border-top-right-radius: 80px;
       border-top-left-radius: 15px;
       border-end-end-radius: 15px;
-      margin: 40px;
+      margin: 40px 55px 40px 40px;
       box-shadow: 0px 0px 25px 7px #ffffff;
     }
 
     & p {
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif, Geneva, Verdana, sans-serif;
       padding: 20px 20px 20px 55px;
-      margin: 10px;
+      margin: 10px 10px 10px 0px;
       text-align: justify;
       font-size: 2.2rem;
+
+      & a {
+        color: #ffffff;
+        /* text-decoration: none; */
+      }
+    }
+  }
+
+  & .Diets-Dish-HealtScgore {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-top: #ffffff solid 3px;
+    border-bottom: #ffffff solid 3px;
+    margin: 0px 55px;
+    text-align: center;
+    padding-bottom: 50px;
+
+    & h3 {
+      color: #af911a;
+
+      display: inline-block;
+      border-bottom: #af911a solid 3px;
+      margin: 0px;
+      font-size: 3rem;
+      padding-top: 50px;
+    }
+
+    & h4 {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif, Geneva, Verdana, sans-serif;
+      font-size: 2rem;
+      margin: 10px;
+    }
+
+    & .HealtScgore {
+      padding: 0px 20px 30px 20px;
+      height: fit-content;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-radius: 25px;
+      border: solid 3px white;
+      box-shadow: 0px 0px 25px 7px #ffffff;
+    }
+
+    & h2 {
+      border-bottom: #af911a solid 3px;
+      margin: 0px;
+      font-size: 3rem;
+      padding-top: 50px;
+      color: #af911a;
+    }
+
+    & h5 {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif, Geneva, Verdana, sans-serif;
+      font-size: 3.5rem;
+      margin: 10px;
+    }
+  }
+
+  & .AnalyzedInstructions {
+    margin: 0px 55px 0px 55px;
+
+    & h4 {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif, Geneva, Verdana, sans-serif;
+      font-size: 2rem;
+      text-align: justify;
+
+      & span {
+        font-family: "Dancing Script", cursive;
+        color: #af911a;
+        font-size: 3rem;
+      }
     }
   }
 `;
@@ -68,8 +145,48 @@ function Detail(props) {
   const dispatch = useDispatch();
   const theRecipe = useSelector((state) => state.detail);
 
+  const getDiets = () => {
+    const onlyDiets = [];
+    theRecipe.vegetarian && onlyDiets.push("vegetarian");
+
+    if (theRecipe.diets) {
+      for (const diet of theRecipe.diets) {
+        typeof diet === "object" ? onlyDiets.push(diet.name) : onlyDiets.push(diet);
+      }
+    }
+    const onlyDietsUP = onlyDiets.map((dietUP) => {
+      return dietUP.charAt(0).toUpperCase() + dietUP.slice(1);
+    });
+    return onlyDietsUP.length ? onlyDietsUP.join(" | ") : "Diets Not Found!";
+  };
+
+  const getDishTypes = () => {
+    const dishTypesUP = theRecipe.dishTypes.map((dishUP) => {
+      return dishUP.charAt(0).toUpperCase() + dishUP.slice(1);
+    });
+    return dishTypesUP.join(" | ");
+  };
+
+  const getSteps = () => {
+    const Steps = [];
+    if (Array.isArray(theRecipe.analyzedInstructions) && theRecipe.analyzedInstructions.length) {
+      theRecipe.analyzedInstructions[0].steps.forEach((element) => {
+        Steps.push(element);
+      });
+    } else if (typeof theRecipe.analyzedInstructions === "string") {
+      Steps.push(theRecipe.analyzedInstructions);
+    } else if (theRecipe.analyzedInstructions.length < 1 || theRecipe.analyzedInstructions === "") {
+      Steps.push("! Instructions Not Found !");
+    }
+    return Steps;
+  };
+
   useEffect(() => {
     dispatch(getDetails(props.match.params.id));
+
+    return () => {
+      dispatch(resetDetails([]));
+    };
   }, [dispatch]);
 
   return (
@@ -89,7 +206,40 @@ function Detail(props) {
             )}
             {theRecipe.image && <img src={theRecipe.image || imgDefaul} alt="img not foud" />}
           </div>
-          <div className="Content">Hola</div>
+          <div className="Diets-Dish-HealtScgore">
+            <div>
+              {theRecipe.diets && (
+                <>
+                  <h3> Type of Diets </h3> <br />
+                  <h4>{getDiets()}</h4>
+                </>
+              )}
+              {theRecipe.dishTypes && (
+                <>
+                  <h3> Type of Dish </h3> <br />
+                  <h4>{getDishTypes()}</h4>
+                </>
+              )}
+            </div>
+            <div className="HealtScgore">
+              <h2>Health Score</h2>
+              {theRecipe.healthScore ? (
+                <h5>{theRecipe.healthScore}%</h5>
+              ) : (
+                <h5>! Health Score Not Found !</h5>
+              )}
+            </div>
+          </div>
+
+          <div className="AnalyzedInstructions">
+            {theRecipe.analyzedInstructions &&
+              getSteps().map((element) => (
+                <h4>
+                  <span>Step {element.number ? element.number : 1}:</span>{" "}
+                  {element.step ? element.step : "Use your imagination."}
+                </h4>
+              ))}
+          </div>
         </SectionStyleCon>
       </MainStyle>
     </>
@@ -97,7 +247,3 @@ function Detail(props) {
 }
 
 export default Detail;
-
-{
-  /* <h3>{theRecipe.diets}</h3> */
-}

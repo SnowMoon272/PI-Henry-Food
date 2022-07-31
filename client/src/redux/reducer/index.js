@@ -8,6 +8,7 @@ import {
   GET_TITLE_RECIPES,
   GET_DIETS,
   GET_DETAILS,
+  RESET_DETAILS,
 } from "../actions";
 
 const initiaState = {
@@ -29,6 +30,12 @@ function rootReducer(state = initiaState, action) {
         ...state,
         recipes: action.payload,
         allRecipes: action.payload,
+      };
+
+    case RESET_DETAILS:
+      return {
+        ...state,
+        detail: action.payload,
       };
 
     case GET_DETAILS:

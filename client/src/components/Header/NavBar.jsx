@@ -15,6 +15,7 @@ const HeaderStyle = styled.header`
   align-items: center;
   padding-left: 15px;
   padding-top: 3px;
+  top: 0px;
 
   & div img {
     border: solid green 3px;

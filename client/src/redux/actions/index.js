@@ -7,6 +7,7 @@ export const ORDER_BY_HEALTSCHORE = "ORDER_BY_HEALTSCHORE";
 export const GET_TITLE_RECIPES = "GET_TITLE_RECIPES";
 export const GET_DIETS = "GET_DIETS";
 export const GET_DETAILS = "GET_DETAILS";
+export const RESET_DETAILS = "RESET_DETAILS";
 
 export function getRecipes() {
   return async (dispatch) => {
@@ -31,7 +32,7 @@ export function getTitleRecipes(title) {
         payload: json.data,
       });
     } catch (error) {
-      throw new Error(error);
+      throw alert("Recipe name not Found");
     }
   };
 }
@@ -47,6 +48,13 @@ export function getDetails(id) {
     } catch (error) {
       throw new Error(error);
     }
+  };
+}
+
+export function resetDetails(payload) {
+  return {
+    type: RESET_DETAILS,
+    payload,
   };
 }
 

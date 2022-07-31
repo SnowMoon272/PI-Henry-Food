@@ -87,6 +87,7 @@ function getRecipeById(req, res, next) {
       .then((response) => {
         return res.status(200).json({
           title: response.data.title,
+          vegetarian: response.data.vegetarian,
           image: response.data.image,
           dishTypes: response.data.dishTypes,
           diets: response.data.diets,

@@ -54,7 +54,6 @@ const FormStyled = styled.form`
     color: black;
     border: 2px solid white;
     border-radius: 25px;
-    /* background-color: #c3b374; */
     background-color: ${(props) => (props.activate ? "#c3b374" : "#7c7c7c")};
     transition: all 0.5s ease;
     margin-right: ${(props) => (props.Return ? "25px" : "0px")};
@@ -63,10 +62,7 @@ const FormStyled = styled.form`
       transform: scale(1.2);
       cursor: pointer;
       color: white;
-      /* background-color: #fecd08a3; */
       background-color: ${(props) => (props.activate ? "#fecd08a3" : "#7c7c7c")};
-
-      /* border: 0.2px solid #fecd08a3; */
       border: 0.2px solid ${(props) => (props.activate ? "#fecd08a3" : "#7c7c7c")};
     }
   }
@@ -251,6 +247,15 @@ function validate(input) {
     errors.title = "Must be between 3 and 25 characters.";
   } else if (!input.summary) {
     errors.summary = "The summary is required.";
+  } else if (!input.healthScore) {
+    errors.healthScore = "Required Field.";
+  } else if (
+    input.image &&
+    !/https?:\/\/(www.)?[-a-zA-Z0-9@:%.+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%+.~#?&//=]*)/.test(
+      input.image
+    )
+  ) {
+    errors.image = "Enter a valid image URL.";
   }
   return errors;
 }
@@ -338,7 +343,7 @@ function Form() {
         <h1>Create your Recipe</h1>
         <SectionStyledCont>
           <FormStyled
-            activate={errors.title || errors.summary ? false : "activate"}
+            activate={errors.title || errors.summary || errors.healthScore ? false : "activate"}
             onSubmit={(e) => handlerSubmit(e)}
           >
             <FormIntStyledCont>
@@ -391,10 +396,18 @@ function Form() {
                     name="healthScore"
                     type="range"
                     max={100}
-                    min={1}
+                    min={0}
                     value={input.healthScore}
                     onChange={(e) => handlerChange(e)}
                   />
+                  {errors.healthScore ? (
+                    <ErrorStyledCont>
+                      <img src={Alert} alt="Alert" />
+                      <p>{errors.healthScore}</p>
+                    </ErrorStyledCont>
+                  ) : (
+                    input.healthScore && <img className="check" src={Check} alt="Alert" />
+                  )}
                 </HealthScoreStyled>
                 <LabelInputStyledCont>
                   <label>Instructions for preparation : </label>
@@ -419,6 +432,14 @@ function Form() {
                     placeholder="Url"
                     onChange={(e) => handlerChange(e)}
                   />
+                  {errors.image ? (
+                    <ErrorStyledCont>
+                      <img src={Alert} alt="Alert" />
+                      <p>{errors.image}</p>
+                    </ErrorStyledCont>
+                  ) : (
+                    input.image && <img className="check" src={Check} alt="Alert" />
+                  )}
                 </LabelInputStyledCont>
               </div>
               <div className="inputsCheck">
@@ -438,7 +459,11 @@ function Form() {
                 ))}
               </div>
             </FormIntStyledCont>
-            <button id="BTN" type="submit" disabled={errors.title || errors.summary ? true : false}>
+            <button
+              id="BTN"
+              type="submit"
+              disabled={errors.title || errors.summary || errors.healthScore ? true : false}
+            >
               Create Recipe
             </button>
           </FormStyled>
