@@ -35,7 +35,8 @@ export function getTitleRecipes(title) {
         payload: json.data,
       });
     } catch (error) {
-      throw alert("Recipe name not Found");
+      window.location.replace("http://localhost:3000/error404");
+      throw new Error(error);
     }
   };
 }
