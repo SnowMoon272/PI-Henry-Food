@@ -9,6 +9,7 @@ import {
   orderByHealtSchore,
   switchLoading,
   filterByDiet,
+  filterByDbApi,
 } from "../../redux/actions";
 import LinkStayled from "../Styles/LinkStyled";
 import Card from "../Card/Card";
@@ -154,6 +155,11 @@ function Home() {
     }, 2500);
   }
 
+  function handlerMyRecipes(e) {
+    dispatch(filterByDbApi(e.target.value));
+    setCurrentPage(1);
+  }
+
   function handlerFilterByDiet(e) {
     dispatch(filterByDiet(e.target.value));
     setCurrentPage(1);
@@ -204,6 +210,12 @@ function Home() {
               <option selected disabled hidden label="Order by HealtSchore" />
               <option value="asc">(+) Most Healthier</option>
               <option value="des">(-) Less healthy</option>
+            </select>
+
+            <select name="myRecipes" onChange={(e) => handlerMyRecipes(e)}>
+              <option selected disabled hidden label="Recipes" />
+              <option value="asc">My Recipes</option>
+              <option value="des">Recipes of comunity</option>
             </select>
 
             <select name="typeOfDiet" onChange={(e) => handlerFilterByDiet(e)}>

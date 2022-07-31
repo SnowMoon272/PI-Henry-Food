@@ -10,6 +10,7 @@ export const GET_DETAILS = "GET_DETAILS";
 export const RESET_DETAILS = "RESET_DETAILS";
 export const SWITCH_LOADING = "SWITCH_LOADING";
 export const POST_RECIPE = "POST_RECIPE";
+export const GET_RECIPES_DB_API = "GET_RECIPES_DB_API";
 
 /* *************************************** ASYNC AWAIT *************************************** */
 
@@ -80,6 +81,22 @@ export function postRecipe(payload) {
       .post("http://localhost:3001/recipe", payload)
       .then((response) => {
         return response;
+      })
+      .catch((error) => {
+        throw new Error(error);
+      });
+  };
+}
+
+export function filterByDbApi(swich) {
+  return (dispatch) => {
+    axios
+      .get(`http://localhost:3001/recipesDB?type=${swich}`)
+      .then((response) => {
+        dispatch({
+          type: GET_RECIPES_DB_API,
+          payload: response.data,
+        });
       })
       .catch((error) => {
         throw new Error(error);

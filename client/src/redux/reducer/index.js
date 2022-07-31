@@ -11,6 +11,7 @@ import {
   RESET_DETAILS,
   SWITCH_LOADING,
   POST_RECIPE,
+  GET_RECIPES_DB_API,
 } from "../actions";
 
 const initiaState = {
@@ -50,6 +51,12 @@ function rootReducer(state = initiaState, action) {
       };
 
     case GET_TITLE_RECIPES:
+      return {
+        ...state,
+        recipes: action.payload,
+      };
+
+    case GET_RECIPES_DB_API:
       return {
         ...state,
         recipes: action.payload,
