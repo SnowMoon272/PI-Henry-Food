@@ -158,6 +158,10 @@ function Home() {
   function handlerMyRecipes(e) {
     dispatch(filterByDbApi(e.target.value));
     setCurrentPage(1);
+    dispatch(switchLoading(true));
+    setTimeout(() => {
+      dispatch(switchLoading(false));
+    }, 2000);
   }
 
   function handlerFilterByDiet(e) {
@@ -214,8 +218,8 @@ function Home() {
 
             <select name="myRecipes" onChange={(e) => handlerMyRecipes(e)}>
               <option selected disabled hidden label="Recipes" />
-              <option value="asc">My Recipes</option>
-              <option value="des">Recipes of comunity</option>
+              <option value="DataBase">My Recipes</option>
+              <option value="Api">Recipes of comunity</option>
             </select>
 
             <select name="typeOfDiet" onChange={(e) => handlerFilterByDiet(e)}>
