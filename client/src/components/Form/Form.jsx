@@ -241,15 +241,20 @@ function validate(input) {
   const errors = {};
   if (!input.title) {
     errors.title = "The name is required.";
-  } else if (!/^[a-zA-Z ]+$/.test(input.title)) {
+  }
+  if (!/^[a-zA-Z ]+$/.test(input.title)) {
     errors.title = "Only letters and spaces.";
-  } else if (!/^[\s\S]{3,25}$/.test(input.title)) {
+  }
+  if (!/^[\s\S]{3,25}$/.test(input.title)) {
     errors.title = "Must be between 3 and 25 characters.";
-  } else if (!input.summary) {
+  }
+  if (!input.summary) {
     errors.summary = "The summary is required.";
-  } else if (!input.healthScore) {
+  }
+  if (!input.healthScore) {
     errors.healthScore = "Required Field.";
-  } else if (
+  }
+  if (
     input.image &&
     !/https?:\/\/(www.)?[-a-zA-Z0-9@:%.+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%+.~#?&//=]*)/.test(
       input.image
@@ -343,7 +348,11 @@ function Form() {
         <h1>Create your Recipe</h1>
         <SectionStyledCont>
           <FormStyled
-            activate={errors.title || errors.summary || errors.healthScore ? false : "activate"}
+            activate={
+              errors.image || errors.title || errors.summary || errors.healthScore
+                ? false
+                : "activate"
+            }
             onSubmit={(e) => handlerSubmit(e)}
           >
             <FormIntStyledCont>
@@ -462,7 +471,9 @@ function Form() {
             <button
               id="BTN"
               type="submit"
-              disabled={errors.title || errors.summary || errors.healthScore ? true : false}
+              disabled={
+                errors.image || errors.title || errors.summary || errors.healthScore ? true : false
+              }
             >
               Create Recipe
             </button>

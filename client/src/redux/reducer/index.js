@@ -10,6 +10,7 @@ import {
   GET_DETAILS,
   RESET_DETAILS,
   SWITCH_LOADING,
+  POST_RECIPE,
 } from "../actions";
 
 const initiaState = {
@@ -141,6 +142,11 @@ function rootReducer(state = initiaState, action) {
       return {
         ...state,
         detail: action.payload,
+      };
+
+    case POST_RECIPE:
+      return {
+        ...state,
       };
 
     default:

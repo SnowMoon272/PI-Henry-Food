@@ -99,9 +99,35 @@ function getRecipeById(req, res, next) {
       .catch((error) => next(error));
   }
 }
-// "a06e3540-d24d-47ec-a1f7-129a980eee44"
+
+function getRecipesDB(req, res, next) {
+  var RecipesApi = [];
+  const typeDB_Api = req.query.type;
+  // Llegara una palabra desde los params DataBase o Api
+  if (typeDB_Api == "DataBase") {
+    Recipe.findAll({ include: [Diet] })
+      .then((recipe) => {
+        return res.status(200).json(recipe);
+      })
+      .catch((error) => {
+        return res.status(404).send("The search returned no results");
+      });
+  } else if (typeDB_Api == "Api") {
+    axios
+      .get(
+        `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&number=100`
+      )
+      .then((apiResponse) => {
+        RecipesApi = apiResponse.data.results;
+        return res.status(200).json(RecipesApi);
+      })
+      .catch((error) => next(error));
+  }
+}
+
 module.exports = {
   getRecipes,
   createRecipe,
   getRecipeById,
+  getRecipesDB,
 };

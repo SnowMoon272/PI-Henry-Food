@@ -9,6 +9,7 @@ export const GET_DIETS = "GET_DIETS";
 export const GET_DETAILS = "GET_DETAILS";
 export const RESET_DETAILS = "RESET_DETAILS";
 export const SWITCH_LOADING = "SWITCH_LOADING";
+export const POST_RECIPE = "POST_RECIPE";
 
 /* *************************************** ASYNC AWAIT *************************************** */
 
@@ -74,14 +75,16 @@ export function getDiets() {
 }
 
 export function postRecipe(payload) {
-  axios
-    .post("http://localhost:3001/recipe", payload)
-    .then((response) => {
-      return response;
-    })
-    .catch((error) => {
-      throw new Error(error);
-    });
+  return (dispatch) => {
+    axios
+      .post("http://localhost:3001/recipe", payload)
+      .then((response) => {
+        return response;
+      })
+      .catch((error) => {
+        throw new Error(error);
+      });
+  };
 }
 
 /* ***************************************** SYNC ***************************************** */
