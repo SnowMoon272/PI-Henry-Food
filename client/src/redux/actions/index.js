@@ -8,6 +8,9 @@ export const GET_TITLE_RECIPES = "GET_TITLE_RECIPES";
 export const GET_DIETS = "GET_DIETS";
 export const GET_DETAILS = "GET_DETAILS";
 export const RESET_DETAILS = "RESET_DETAILS";
+export const SWITCH_LOADING = "SWITCH_LOADING";
+
+/* *************************************** ASYNC AWAIT *************************************** */
 
 export function getRecipes() {
   return async (dispatch) => {
@@ -51,31 +54,50 @@ export function getDetails(id) {
   };
 }
 
-export function resetDetails(payload) {
-  return {
-    type: RESET_DETAILS,
-    payload,
-  };
-}
+/* *************************************** PROMISES *************************************** */
 
 export function getDiets() {
-  return async (dispatch) => {
-    try {
-      const json = await axios.get("http://localhost:3001/diets");
-      return dispatch({
-        type: GET_DIETS,
-        payload: json.data,
+  return (dispatch) => {
+    axios
+      .get("http://localhost:3001/diets")
+      .then((response) => {
+        dispatch({
+          type: GET_DIETS,
+          payload: response.data,
+        });
+      })
+      .catch((error) => {
+        throw new Error(error);
       });
-    } catch (error) {
-      throw new Error(error);
-    }
   };
 }
 
 export function postRecipe(payload) {
+  axios
+    .post("http://localhost:3001/recipe", payload)
+    .then((response) => {
+      return response;
+    })
+    .catch((error) => {
+      throw new Error(error);
+    });
+}
+
+/* ***************************************** SYNC ***************************************** */
+
+export function switchLoading(payload) {
   return (dispatch) => {
-    const response = axios.post("http://localhost:3001/recipe", payload);
-    return response;
+    dispatch({
+      type: SWITCH_LOADING,
+      payload,
+    });
+  };
+}
+
+export function resetDetails(payload) {
+  return {
+    type: RESET_DETAILS,
+    payload,
   };
 }
 

@@ -5,9 +5,10 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { getDetails, resetDetails } from "../../redux/actions/index";
+import { getDetails, resetDetails, switchLoading } from "../../redux/actions/index";
 import NavBar from "../Header/NavBar";
 import imgDefaul from "../../img/fondoManu.jpg";
+import LoadingGif from "../../img/Loading.gif";
 
 const H1Style = styled.h1`
   display: inline-block;
@@ -141,9 +142,21 @@ const SectionStyleCon = styled.section`
   }
 `;
 
+const LoadingIMGStyle = styled.div`
+  margin-top: 270px;
+  & img {
+    border: #ffffff solid 5px;
+    margin-top: 100px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 50px 50px #ffffff;
+  }
+`;
+
 function Detail(props) {
   const dispatch = useDispatch();
   const theRecipe = useSelector((state) => state.detail);
+  const loading = useSelector((state) => state.loading);
 
   const getDiets = () => {
     const onlyDiets = [];
@@ -183,6 +196,10 @@ function Detail(props) {
 
   useEffect(() => {
     dispatch(getDetails(props.match.params.id));
+    dispatch(switchLoading(true));
+    setTimeout(() => {
+      dispatch(switchLoading(false));
+    }, 3000);
 
     return () => {
       dispatch(resetDetails([]));
@@ -192,56 +209,62 @@ function Detail(props) {
   return (
     <>
       <NavBar />
-      <MainStyle>
-        <H1Style>Recipe Detail</H1Style>
-        <SectionStyleCon>
-          {theRecipe.title && <h1>{theRecipe.title}</h1>}
-          <div className="Img-Summary">
-            {theRecipe.summary && (
-              <p
-                dangerouslySetInnerHTML={{
-                  __html: theRecipe.summary,
-                }}
-              />
-            )}
-            {theRecipe.image && <img src={theRecipe.image || imgDefaul} alt="img not foud" />}
-          </div>
-          <div className="Diets-Dish-HealtScgore">
-            <div>
-              {theRecipe.diets && (
-                <>
-                  <h3> Type of Diets </h3> <br />
-                  <h4>{getDiets()}</h4>
-                </>
+      <H1Style>Recipe Detail</H1Style>
+      {loading ? (
+        <LoadingIMGStyle>
+          <img className="loadingIMG" src={LoadingGif} alt="Loading" />
+        </LoadingIMGStyle>
+      ) : (
+        <MainStyle>
+          <SectionStyleCon>
+            {theRecipe.title && <h1>{theRecipe.title}</h1>}
+            <div className="Img-Summary">
+              {theRecipe.summary && (
+                <p
+                  dangerouslySetInnerHTML={{
+                    __html: theRecipe.summary,
+                  }}
+                />
               )}
-              {theRecipe.dishTypes && (
-                <>
-                  <h3> Type of Dish </h3> <br />
-                  <h4>{getDishTypes()}</h4>
-                </>
-              )}
+              {theRecipe.image && <img src={theRecipe.image || imgDefaul} alt="img not foud" />}
             </div>
-            <div className="HealtScgore">
-              <h2>Health Score</h2>
-              {theRecipe.healthScore ? (
-                <h5>{theRecipe.healthScore}%</h5>
-              ) : (
-                <h5>! Health Score Not Found !</h5>
-              )}
+            <div className="Diets-Dish-HealtScgore">
+              <div>
+                {theRecipe.diets && (
+                  <>
+                    <h3> Type of Diets </h3> <br />
+                    <h4>{getDiets()}</h4>
+                  </>
+                )}
+                {theRecipe.dishTypes && (
+                  <>
+                    <h3> Type of Dish </h3> <br />
+                    <h4>{getDishTypes()}</h4>
+                  </>
+                )}
+              </div>
+              <div className="HealtScgore">
+                <h2>Health Score</h2>
+                {theRecipe.healthScore ? (
+                  <h5>{theRecipe.healthScore}%</h5>
+                ) : (
+                  <h5>! Health Score Not Found !</h5>
+                )}
+              </div>
             </div>
-          </div>
 
-          <div className="AnalyzedInstructions">
-            {theRecipe.analyzedInstructions &&
-              getSteps().map((element) => (
-                <h4>
-                  <span>Step {element.number ? element.number : 1}:</span>{" "}
-                  {element.step ? element.step : "Use your imagination."}
-                </h4>
-              ))}
-          </div>
-        </SectionStyleCon>
-      </MainStyle>
+            <div className="AnalyzedInstructions">
+              {theRecipe.analyzedInstructions &&
+                getSteps().map((element) => (
+                  <h4>
+                    <span>Step {element.number ? element.number : 1}:</span>{" "}
+                    {element.step ? element.step : "Use your imagination."}
+                  </h4>
+                ))}
+            </div>
+          </SectionStyleCon>
+        </MainStyle>
+      )}
     </>
   );
 }

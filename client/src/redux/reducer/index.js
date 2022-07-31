@@ -9,6 +9,7 @@ import {
   GET_DIETS,
   GET_DETAILS,
   RESET_DETAILS,
+  SWITCH_LOADING,
 } from "../actions";
 
 const initiaState = {
@@ -16,6 +17,7 @@ const initiaState = {
   allRecipes: [],
   diets: [],
   detail: [],
+  loading: true,
 };
 
 function rootReducer(state = initiaState, action) {
@@ -25,17 +27,13 @@ function rootReducer(state = initiaState, action) {
   let orderArrayHealtSchore;
 
   switch (action.type) {
+    /* ***************************************** GET´s ***************************************** */
+
     case GET_RECIPES:
       return {
         ...state,
         recipes: action.payload,
         allRecipes: action.payload,
-      };
-
-    case RESET_DETAILS:
-      return {
-        ...state,
-        detail: action.payload,
       };
 
     case GET_DETAILS:
@@ -50,17 +48,13 @@ function rootReducer(state = initiaState, action) {
         diets: action.payload,
       };
 
-    case "POST_RECIPE":
-      return {
-        ...state,
-      };
-
     case GET_TITLE_RECIPES:
       return {
         ...state,
         recipes: action.payload,
       };
 
+    /* ***************************************** FILTER´s & ORDER´s ***************************************** */
     case FILTER_BY_DIET:
       allRecipesCopy = state.allRecipes;
 
@@ -134,6 +128,19 @@ function rootReducer(state = initiaState, action) {
       return {
         ...state,
         recipes: orderArrayHealtSchore,
+      };
+    /* ***************************************** OTHER´s ***************************************** */
+
+    case SWITCH_LOADING:
+      return {
+        ...state,
+        loading: action.payload,
+      };
+
+    case RESET_DETAILS:
+      return {
+        ...state,
+        detail: action.payload,
       };
 
     default:

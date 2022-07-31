@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { getTitleRecipes } from "../../redux/actions";
+import { getTitleRecipes, switchLoading } from "../../redux/actions";
 
 const HeaderStyle = styled.header`
   /* border: 3px solid red; */
   margin-right: 30px;
-  width: 370px;
+  width: 450px;
   display: flex;
   justify-content: space-between;
 
   input {
     font-family: "Dancing Script", cursive;
-    width: 185px;
+    width: 270px;
     outline: none;
     font-size: 2rem;
     color: black;
@@ -57,6 +57,11 @@ function SerachBar({ paginado }) {
     dispatch(getTitleRecipes(title));
     setTitle("");
     paginado(1);
+
+    dispatch(switchLoading(true));
+    setTimeout(() => {
+      dispatch(switchLoading(false));
+    }, 2500);
   };
 
   return (

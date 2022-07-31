@@ -1,12 +1,20 @@
+/* eslint-disable comma-dangle */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { getRecipes, filterByDiet, orderByTitle, orderByHealtSchore } from "../../redux/actions";
+import {
+  getRecipes,
+  orderByTitle,
+  orderByHealtSchore,
+  switchLoading,
+  filterByDiet,
+} from "../../redux/actions";
 import LinkStayled from "../Styles/LinkStyled";
 import Card from "../Card/Card";
 import Paginado from "../Paginado/Paginado";
 import NavBar from "../Header/NavBar";
+import LoadingGif from "../../img/Loading.gif";
 
 /* ****************************************** CSS ***************************************** */
 const HeaderStyleCont = styled.div`
@@ -100,11 +108,20 @@ const CardStyleCont = styled.section`
   margin-top: 200px;
   width: 90%;
   height: 100%;
+
+  & .loadingIMG {
+    border: #ffffff solid 5px;
+    margin-top: 100px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 50px 50px #ffffff;
+  }
 `;
 
 function Home() {
   /* ***************************************** REDUX **************************************** */
   const dispatch = useDispatch();
+  const loading = useSelector((state) => state.loading);
   const allRecipes = useSelector((state) => state.recipes);
 
   /* **************************************** PAGINADO **************************************** */
@@ -122,11 +139,19 @@ function Home() {
   /* **************************************** HANDLERS **************************************** */
   useEffect(() => {
     dispatch(getRecipes());
+
+    setTimeout(() => {
+      dispatch(switchLoading(false));
+    }, 2500);
   }, [dispatch]);
 
   function handlerClick(e) {
     e.preventDefault();
     dispatch(getRecipes());
+    dispatch(switchLoading(true));
+    setTimeout(() => {
+      dispatch(switchLoading(false));
+    }, 2500);
   }
 
   function handlerFilterByDiet(e) {
@@ -208,19 +233,25 @@ function Home() {
           />
         </SectionStyleCont>
         <CardStyleCont>
-          {currentRicipes?.map((recipe) => {
-            return (
-              <Card
-                key={recipe.id}
-                id={recipe.id}
-                title={recipe.title}
-                image={recipe.image}
-                diets={recipe.diets}
-                healthScore={recipe.healthScore}
-                vegetarian={recipe.vegetarian}
-              />
-            );
-          })}
+          {loading ? (
+            <div>
+              <img className="loadingIMG" src={LoadingGif} alt="Loading" />
+            </div>
+          ) : (
+            currentRicipes?.map((recipe) => {
+              return (
+                <Card
+                  key={recipe.id}
+                  id={recipe.id}
+                  title={recipe.title}
+                  image={recipe.image}
+                  diets={recipe.diets}
+                  healthScore={recipe.healthScore}
+                  vegetarian={recipe.vegetarian}
+                />
+              );
+            })
+          )}
         </CardStyleCont>
       </HomeContainerStyle>
     </>
