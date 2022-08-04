@@ -1,7 +1,7 @@
-/* eslint-disable indent */
+/* eslint-disable react/destructuring-assignment */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable react/no-danger */
-/* eslint-disable react/destructuring-assignment */
+/* eslint-disable no-confusing-arrow */
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
@@ -189,7 +189,7 @@ function Detail(props) {
     } else if (typeof theRecipe.analyzedInstructions === "string") {
       Steps.push(theRecipe.analyzedInstructions);
     } else if (theRecipe.analyzedInstructions.length < 1 || theRecipe.analyzedInstructions === "") {
-      Steps.push("! Instructions Not Found !");
+      Steps.push("Use your imagination.");
     }
     return Steps;
   };
@@ -255,12 +255,19 @@ function Detail(props) {
 
             <div className="AnalyzedInstructions">
               {theRecipe.analyzedInstructions &&
-                getSteps().map((element) => (
-                  <h4>
-                    <span>Step {element.number ? element.number : 1}:</span>{" "}
-                    {element.step ? element.step : "Use your imagination."}
-                  </h4>
-                ))}
+                getSteps().map((element) =>
+                  !element.number ? (
+                    <h4>
+                      <span>Steps to create: </span>
+                      {element[0] ? element : "Use your imagination."}
+                    </h4>
+                  ) : (
+                    <h4>
+                      <span>Step {element.number ? element.number : 1}:</span>{" "}
+                      {element.step ? element.step : "Use your imagination."}
+                    </h4>
+                  )
+                )}
             </div>
           </SectionStyleCon>
         </MainStyle>

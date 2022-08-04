@@ -74,7 +74,7 @@ function getRecipeById(req, res, next) {
 function getRecipesDB(req, res, next) {
   var RecipesApi = [];
   const typeDB_Api = req.query.type;
-  // Llegara una palabra desde los params DataBase o Api
+
   if (typeDB_Api == "DataBase") {
     Recipe.findAll({ include: [Diet] })
       .then((recipe) => {
