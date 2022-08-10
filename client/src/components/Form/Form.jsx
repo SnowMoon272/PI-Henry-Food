@@ -1,7 +1,5 @@
-/* eslint-disable no-useless-escape */
-/* eslint-disable no-unneeded-ternary */
-/* eslint-disable react/no-unknown-property */
 /* eslint-disable jsx-a11y/label-has-associated-control */
+
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
@@ -417,6 +415,7 @@ function Form() {
                   ) : (
                     input.healthScore && <img className="check" src={Check} alt="Alert" />
                   )}
+
                 </HealthScoreStyled>
                 <LabelInputStyledCont>
                   <label>Instructions for preparation : </label>
@@ -472,7 +471,7 @@ function Form() {
               id="BTN"
               type="submit"
               disabled={
-                errors.image || errors.title || errors.summary || errors.healthScore ? true : false
+                !!(errors.image || errors.title || errors.summary || errors.healthScore)
               }
             >
               Create Recipe
