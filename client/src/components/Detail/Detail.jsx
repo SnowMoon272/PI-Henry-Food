@@ -1,7 +1,3 @@
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable react/no-danger */
-/* eslint-disable no-confusing-arrow */
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
@@ -195,6 +191,7 @@ function Detail(props) {
   };
 
   useEffect(() => {
+    // eslint-disable-next-line react/destructuring-assignment
     dispatch(getDetails(props.match.params.id));
     dispatch(switchLoading(true));
     setTimeout(() => {
@@ -256,7 +253,7 @@ function Detail(props) {
             <div className="AnalyzedInstructions">
               {theRecipe.analyzedInstructions &&
                 getSteps().map((element) =>
-                  !element.number ? (
+                  (!element.number ? (
                     <h4>
                       <span>Steps to create: </span>
                       {element[0] ? element : "Use your imagination."}
@@ -266,7 +263,7 @@ function Detail(props) {
                       <span>Step {element.number ? element.number : 1}:</span>{" "}
                       {element.step ? element.step : "Use your imagination."}
                     </h4>
-                  )
+                  ))
                 )}
             </div>
           </SectionStyleCon>

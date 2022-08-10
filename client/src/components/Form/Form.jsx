@@ -1,5 +1,4 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
@@ -356,17 +355,18 @@ function Form() {
             <FormIntStyledCont>
               <div className="inputsText">
                 <LabelInputStyledCont check={input.title}>
-                  <label htmlFor="title">Recipe name : </label>
-                  <br />
-                  <input
-                    id="title"
-                    autoComplete="off"
-                    name="title"
-                    type="text"
-                    value={input.title}
-                    placeholder="Recipe name"
-                    onChange={(e) => handlerChange(e)}
-                  />
+                  <label htmlFor="title">Recipe name :
+                    <br />
+                    <input
+                      id="title"
+                      autoComplete="off"
+                      name="title"
+                      type="text"
+                      value={input.title}
+                      placeholder="Recipe name"
+                      onChange={(e) => handlerChange(e)}
+                    />
+                  </label>
                   {errors.title ? (
                     <ErrorStyledCont>
                       <img src={Alert} alt="Alert" />
@@ -377,16 +377,18 @@ function Form() {
                   )}
                 </LabelInputStyledCont>
                 <LabelInputStyledCont>
-                  <label>Recipe summary : </label>
-                  <br />
-                  <input
-                    autoComplete="off"
-                    name="summary"
-                    type=""
-                    value={input.summary}
-                    placeholder="Recipe summary"
-                    onChange={(e) => handlerChange(e)}
-                  />
+                  <label htmlFor="summary">Recipe summary :
+                    <br />
+                    <input
+                      id="summary"
+                      autoComplete="off"
+                      name="summary"
+                      type=""
+                      value={input.summary}
+                      placeholder="Recipe summary"
+                      onChange={(e) => handlerChange(e)}
+                    />
+                  </label>
                   {errors.summary ? (
                     <ErrorStyledCont>
                       <img src={Alert} alt="Alert" />
@@ -397,16 +399,18 @@ function Form() {
                   )}
                 </LabelInputStyledCont>
                 <HealthScoreStyled>
-                  <label>Health Score : {`${input.healthScore}%`}</label>
-                  <br />
-                  <input
-                    name="healthScore"
-                    type="range"
-                    max={100}
-                    min={0}
-                    value={input.healthScore}
-                    onChange={(e) => handlerChange(e)}
-                  />
+                  <label htmlFor="healthScore">Health Score : {`${input.healthScore}%`}
+                    <br />
+                    <input
+                      id="healthScore"
+                      name="healthScore"
+                      type="range"
+                      max={100}
+                      min={0}
+                      value={input.healthScore}
+                      onChange={(e) => handlerChange(e)}
+                    />
+                  </label>
                   {errors.healthScore ? (
                     <ErrorStyledCont>
                       <img src={Alert} alt="Alert" />
@@ -418,28 +422,32 @@ function Form() {
 
                 </HealthScoreStyled>
                 <LabelInputStyledCont>
-                  <label>Instructions for preparation : </label>
-                  <br />
-                  <input
-                    autoComplete="off"
-                    name="analyzedInstructions"
-                    type="text"
-                    value={input.analyzedInstructions}
-                    placeholder="Instructions"
-                    onChange={(e) => handlerChange(e)}
-                  />
+                  <label htmlFor="analyzedInstructions">Instructions for preparation :
+                    <br />
+                    <input
+                      id="analyzedInstructions"
+                      autoComplete="off"
+                      name="analyzedInstructions"
+                      type="text"
+                      value={input.analyzedInstructions}
+                      placeholder="Instructions"
+                      onChange={(e) => handlerChange(e)}
+                    />
+                  </label>
                 </LabelInputStyledCont>
                 <LabelInputStyledCont>
-                  <label> Url Image :</label>
-                  <br />
-                  <input
-                    autoComplete="off"
-                    name="image"
-                    type="text"
-                    value={input.image}
-                    placeholder="Url"
-                    onChange={(e) => handlerChange(e)}
-                  />
+                  <label htmlFor="image"> Url Image :
+                    <br />
+                    <input
+                      id="image"
+                      autoComplete="off"
+                      name="image"
+                      type="text"
+                      value={input.image}
+                      placeholder="Url"
+                      onChange={(e) => handlerChange(e)}
+                    />
+                  </label>
                   {errors.image ? (
                     <ErrorStyledCont>
                       <img src={Alert} alt="Alert" />
@@ -454,8 +462,9 @@ function Form() {
                 <label> Types of diets: </label>
                 <br />
                 {diets.map((diets) => (
-                  <label key={diets.name}>
+                  <label htmlFor={diets.name} key={diets.name}>
                     <input
+                      id={diets.name}
                       onChange={(e) => handlerCheck(e)}
                       name={diets.name}
                       type="checkbox"
