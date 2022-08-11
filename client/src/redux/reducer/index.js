@@ -1,4 +1,3 @@
-/* eslint-disable comma-dangle */
 /* eslint-disable indent */
 import {
   GET_RECIPES,
@@ -12,6 +11,7 @@ import {
   SWITCH_LOADING,
   POST_RECIPE,
   GET_RECIPES_DB_API,
+  DELETE_RECIPE,
 } from "../actions";
 
 const initiaState = {
@@ -152,6 +152,11 @@ function rootReducer(state = initiaState, action) {
       };
 
     case POST_RECIPE:
+      return {
+        ...state,
+      };
+
+    case DELETE_RECIPE:
       return {
         ...state,
       };

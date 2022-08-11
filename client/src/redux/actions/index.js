@@ -11,6 +11,7 @@ export const RESET_DETAILS = "RESET_DETAILS";
 export const SWITCH_LOADING = "SWITCH_LOADING";
 export const POST_RECIPE = "POST_RECIPE";
 export const GET_RECIPES_DB_API = "GET_RECIPES_DB_API";
+export const DELETE_RECIPE = "DELETE_RECIPE";
 
 /* *************************************** ASYNC AWAIT *************************************** */
 
@@ -49,6 +50,20 @@ export function getDetails(id) {
       const json = await axios.get(`http://localhost:3001/recipes/${id}`);
       return dispatch({
         type: GET_DETAILS,
+        payload: json.data,
+      });
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
+}
+
+export function deleteRecipe(id) {
+  return async (dispatch) => {
+    try {
+      const json = await axios.delete(`http://localhost:3001/recipeDlt?idDelete=${id}`);
+      return dispatch({
+        type: DELETE_RECIPE,
         payload: json.data,
       });
     } catch (error) {

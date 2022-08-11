@@ -31,22 +31,22 @@
       {
         "arrays": "never",
         "objects": "always-multiline",
-        "imports": "never",
-        "exports": "never",
+        "imports": "always-multiline",
+        "exports": "always-multiline",
         "functions": "never"
       }
     ],
     "no-restricted-syntax": [
-            "error",
-            {
-                "selector": "FunctionExpression",
-                "message": "Function expressions are not allowed."
-            },
-            {
-                "selector": "CallExpression[callee.name='setTimeout'][arguments.length!=2]",
-                "message": "setTimeout must always be invoked with two arguments."
-            }
-        ],
+      "error",
+      {
+        "selector": "FunctionExpression",
+        "message": "Function expressions are not allowed."
+      },
+      {
+        "selector": "CallExpression[callee.name='setTimeout'][arguments.length!=2]",
+        "message": "setTimeout must always be invoked with two arguments."
+      }
+    ],
     "react/no-danger": 0,
     "default-param-last": 0,
     "react/jsx-filename-extension": 1,

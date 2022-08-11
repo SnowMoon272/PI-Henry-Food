@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const axios = require("axios");
 require("dotenv").config();
 const { API_KEY } = process.env;
@@ -80,7 +81,7 @@ function getRecipesDB(req, res, next) {
       .then((recipe) => {
         return res.status(200).json(recipe);
       })
-      .catch((error) => {
+      .catch(() => {
         return res.status(404).send("The search returned no results");
       });
   } else if (typeDB_Api == "Api") {
@@ -101,7 +102,7 @@ async function createRecipe(req, res, next) {
   let { title, summary, healthScore, analyzedInstructions, image, diets } = req.body;
 
   if (!title || !summary || !diets)
-    return res.status(404).send(`The "title", the type of "diet" or the "summary" are missing.`);
+    return res.status(404).send("The -title-, the type of -diet- or the -summary- are missing.");
 
   try {
     let createdRecipe = await Recipe.create({
@@ -123,8 +124,24 @@ async function createRecipe(req, res, next) {
       message: "Recipe created successfully",
     });
   } catch (error) {
-    // res.status(404).send("error");
     next(error);
+  }
+}
+
+async function deleteRecipe(req, res) {
+  const id = req.query.idDelete;
+
+  if (id.includes("-")) {
+    Recipe.destroy({
+      where: {
+        id: id,
+      },
+    });
+    return res.status(200).send("Receta eliminada.");
+  } else {
+    return res.status(404).json({
+      message: "Esa receta no es tuya",
+    });
   }
 }
 
@@ -133,4 +150,5 @@ module.exports = {
   createRecipe,
   getRecipeById,
   getRecipesDB,
+  deleteRecipe,
 };

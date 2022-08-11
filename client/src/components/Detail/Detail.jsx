@@ -1,10 +1,14 @@
+/* eslint-disable no-confusing-arrow */
+/* eslint-disable react/destructuring-assignment */
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-import { getDetails, resetDetails, switchLoading } from "../../redux/actions/index";
+import { getDetails, resetDetails, switchLoading, deleteRecipe } from "../../redux/actions/index";
 import NavBar from "../Header/NavBar";
 import imgDefaul from "../../img/fondoManu.jpg";
 import LoadingGif from "../../img/Loading.gif";
+import LinkStayled from "../Styles/LinkStyled";
 
 const H1Style = styled.h1`
   display: inline-block;
@@ -150,6 +154,7 @@ const LoadingIMGStyle = styled.div`
 `;
 
 function Detail(props) {
+  const history = useHistory();
   const dispatch = useDispatch();
   const theRecipe = useSelector((state) => state.detail);
   const loading = useSelector((state) => state.loading);
@@ -191,7 +196,6 @@ function Detail(props) {
   };
 
   useEffect(() => {
-    // eslint-disable-next-line react/destructuring-assignment
     dispatch(getDetails(props.match.params.id));
     dispatch(switchLoading(true));
     setTimeout(() => {
@@ -202,6 +206,13 @@ function Detail(props) {
       dispatch(resetDetails([]));
     };
   }, [dispatch]);
+
+  const handlerDelet = (e) => {
+    e.preventDefault();
+    dispatch(deleteRecipe(props.match.params.id));
+    alert("Recipe Deleted");
+    history.push("/home");
+  };
 
   return (
     <>
@@ -253,7 +264,7 @@ function Detail(props) {
             <div className="AnalyzedInstructions">
               {theRecipe.analyzedInstructions &&
                 getSteps().map((element) =>
-                  (!element.number ? (
+                  !element.number ? (
                     <h4>
                       <span>Steps to create: </span>
                       {element[0] ? element : "Use your imagination."}
@@ -263,9 +274,19 @@ function Detail(props) {
                       <span>Step {element.number ? element.number : 1}:</span>{" "}
                       {element.step ? element.step : "Use your imagination."}
                     </h4>
-                  ))
+                  )
                 )}
             </div>
+
+            {props.match.params.id.includes("-") && (
+              <div>
+                <LinkStayled>
+                  <button onClick={(e) => handlerDelet(e)} type="button">
+                    Delete
+                  </button>
+                </LinkStayled>
+              </div>
+            )}
           </SectionStyleCon>
         </MainStyle>
       )}
