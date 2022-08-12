@@ -351,7 +351,8 @@ function Form() {
                 ? false
                 : "activate"
             }
-            onSubmit={(e) => handlerSubmit(e)}>
+            onSubmit={(e) => handlerSubmit(e)}
+          >
             <FormIntStyledCont>
               <div className="inputsText">
                 <LabelInputStyledCont check={input.title}>
@@ -484,7 +485,8 @@ function Form() {
             <button
               id="BTN"
               type="submit"
-              disabled={!!(errors.image || errors.title || errors.summary || errors.healthScore)}>
+              disabled={!!(errors.image || errors.title || errors.summary || errors.healthScore)}
+            >
               Create Recipe
             </button>
           </FormStyled>
