@@ -23,10 +23,9 @@ server.use((req, res, next) => {
 
 server.use("/", routes);
 
-server.use((err, req, res, next) => {
+server.use((err, req, res) => {
   const status = err.status || 500;
   const message = err.message || err;
-  console.error(err);
   res.status(status).send(message);
 });
 

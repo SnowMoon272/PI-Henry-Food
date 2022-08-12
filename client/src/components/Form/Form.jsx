@@ -253,6 +253,7 @@ function validate(input) {
   }
   if (
     input.image &&
+    // eslint-disable-next-line max-len
     !/https?:\/\/(www.)?[-a-zA-Z0-9@:%.+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%+.~#?&//=]*)/.test(
       input.image
     )
@@ -350,12 +351,12 @@ function Form() {
                 ? false
                 : "activate"
             }
-            onSubmit={(e) => handlerSubmit(e)}
-          >
+            onSubmit={(e) => handlerSubmit(e)}>
             <FormIntStyledCont>
               <div className="inputsText">
                 <LabelInputStyledCont check={input.title}>
-                  <label htmlFor="title">Recipe name :
+                  <label htmlFor="title">
+                    Recipe name :
                     <br />
                     <input
                       id="title"
@@ -377,7 +378,8 @@ function Form() {
                   )}
                 </LabelInputStyledCont>
                 <LabelInputStyledCont>
-                  <label htmlFor="summary">Recipe summary :
+                  <label htmlFor="summary">
+                    Recipe summary :
                     <br />
                     <input
                       id="summary"
@@ -399,7 +401,8 @@ function Form() {
                   )}
                 </LabelInputStyledCont>
                 <HealthScoreStyled>
-                  <label htmlFor="healthScore">Health Score : {`${input.healthScore}%`}
+                  <label htmlFor="healthScore">
+                    Health Score : {`${input.healthScore}%`}
                     <br />
                     <input
                       id="healthScore"
@@ -419,10 +422,10 @@ function Form() {
                   ) : (
                     input.healthScore && <img className="check" src={Check} alt="Alert" />
                   )}
-
                 </HealthScoreStyled>
                 <LabelInputStyledCont>
-                  <label htmlFor="analyzedInstructions">Instructions for preparation :
+                  <label htmlFor="analyzedInstructions">
+                    Instructions for preparation :
                     <br />
                     <input
                       id="analyzedInstructions"
@@ -436,7 +439,9 @@ function Form() {
                   </label>
                 </LabelInputStyledCont>
                 <LabelInputStyledCont>
-                  <label htmlFor="image"> Url Image :
+                  <label htmlFor="image">
+                    {" "}
+                    Url Image :
                     <br />
                     <input
                       id="image"
@@ -479,10 +484,7 @@ function Form() {
             <button
               id="BTN"
               type="submit"
-              disabled={
-                !!(errors.image || errors.title || errors.summary || errors.healthScore)
-              }
-            >
+              disabled={!!(errors.image || errors.title || errors.summary || errors.healthScore)}>
               Create Recipe
             </button>
           </FormStyled>
