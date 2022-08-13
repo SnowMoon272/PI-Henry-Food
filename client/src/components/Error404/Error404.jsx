@@ -86,7 +86,8 @@ function Error404() {
           <h1>404</h1>
           <h2>Not Found</h2>
         </div>
-        {url === "http://localhost:3000/error404" ? (
+        {/* {url === "http://localhost:3000/error404" ? ( @Remplazar esta linea si se esta en localhost */}
+        {url === "https://pi-henry-food-gold.vercel.app/error404" ? (
           <p>
             <span> I'm sorry !</span> &#128546; We couldn't find your recipe, but try something
             else.
