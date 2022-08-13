@@ -85,7 +85,7 @@ function Card({ title, image, diets, healthScore, vegetarian, id }) {
       <div>
         <h2>{title}</h2>
         <h3>
-          {url === "http://localhost:3000/recipe" || "https://pi-henry-food-gold.vercel.app/recipe"
+          {url === "https://pi-henry-food-gold.vercel.app/recipe"
             ? diets.map((diet) => {
                 return ` ${diet.charAt(0).toUpperCase() + diet.slice(1)} |`;
               })
