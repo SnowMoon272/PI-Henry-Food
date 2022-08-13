@@ -29,7 +29,11 @@ server.use("/", routes);
 server.use((err, req, res) => {
   const statust = err.status || 500;
   const message = err.message || err;
+<<<<<<< HEAD
   return res.status(statust).send(message);
+=======
+  res.status(statust).send(message);
+>>>>>>> master
 });
 
 module.exports = server;
