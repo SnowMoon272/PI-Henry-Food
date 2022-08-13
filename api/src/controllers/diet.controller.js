@@ -11,7 +11,7 @@ let finalDietsLocal = [
   { name: "low FODMAP" },
 ];
 
-async function getDiets(req, res, next) {
+async function getDiets(req, res) {
   try {
     let findDiet = await Diet.findAll();
     if (findDiet.length > 0) {
@@ -37,7 +37,7 @@ async function getDiets(req, res, next) {
       return res.status(200).json(newDiets);
     }
   } catch (error) {
-    next(error);
+    return res.status(404).send(error);
   }
 }
 

@@ -6,7 +6,7 @@ const { Recipe, Diet } = require("../db");
 
 /* ********************************************** PROMISES ********************************************** */
 
-function getRecipes(req, res, next) {
+function getRecipes(req, res) {
   const nameQuery = req.query.name;
   var RecipesApi = [];
   var RecipesDb = [];
@@ -30,7 +30,7 @@ function getRecipes(req, res, next) {
         }
         return res.status(200).json([...RecipesDb, ...RecipesApi]);
       })
-      .catch((error) => next(error));
+      .catch((error) => res.status(404).send(error));
   } else {
     axios
       .get(
@@ -43,11 +43,11 @@ function getRecipes(req, res, next) {
       .then((localResponse) => {
         return res.status(200).json([...localResponse, ...RecipesApi]);
       })
-      .catch((error) => next(error));
+      .catch((error) => res.status(404).send(error));
   }
 }
 
-function getRecipeById(req, res, next) {
+function getRecipeById(req, res) {
   const id = req.params.idReceta;
   if (id.includes("-")) {
     Recipe.findByPk(id, { include: Diet }).then((recipe) => {
@@ -68,11 +68,11 @@ function getRecipeById(req, res, next) {
           analyzedInstructions: response.data.analyzedInstructions,
         });
       })
-      .catch((error) => next(error));
+      .catch((error) => res.status(404).send(error));
   }
 }
 
-function getRecipesDB(req, res, next) {
+function getRecipesDB(req, res) {
   var RecipesApi = [];
   const typeDB_Api = req.query.type;
 
@@ -93,12 +93,12 @@ function getRecipesDB(req, res, next) {
         RecipesApi = apiResponse.data.results;
         return res.status(200).json(RecipesApi);
       })
-      .catch((error) => next(error));
+      .catch((error) => res.status(404).send(error));
   }
 }
 /* ********************************************** ASYNC AWAIT ********************************************** */
 
-async function createRecipe(req, res, next) {
+async function createRecipe(req, res) {
   let { title, summary, healthScore, analyzedInstructions, image, diets } = req.body;
 
   if (!title || !summary || !diets)
@@ -124,7 +124,7 @@ async function createRecipe(req, res, next) {
       message: "Recipe created successfully",
     });
   } catch (error) {
-    next(error);
+    res.status(404).send(error);
   }
 }
 
