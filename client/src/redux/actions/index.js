@@ -39,9 +39,8 @@ export function getTitleRecipes(title) {
         payload: json.data,
       });
     } catch (error) {
-      window.location.href === "http://localhost:3000/home"
-        ? window.location.replace("https://pi-henry-food-gold.vercel.app/error404")
-        : alert("Recipe not found");
+      //  window.location.replace("http://localhost:3000/home"); Para uso en Local
+      window.location.replace("https://pi-henry-food-gold.vercel.app/error404");
     }
   };
 }
