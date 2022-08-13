@@ -92,8 +92,7 @@ function Card({ title, image, diets, healthScore, vegetarian, id }) {
             : getDiets()}
         </h3>
         <h3>{`Health Score :  ${healthScore}%`}</h3>
-        {url !== "http://localhost:3000/recipe" &&
-        "https://pi-henry-food-gold.vercel.app/recipe" ? (
+        {url !== "https://pi-henry-food-gold.vercel.app/recipe" ? (
           <LinkStayled to={`/detail/${id}`}>
             <button id="BTN-CArd" type="button">
               Learn More
