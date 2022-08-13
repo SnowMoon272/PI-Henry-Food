@@ -112,10 +112,10 @@ export default function About() {
           navegar entre las recetas.
         </p>
         <p>
-          Aquí comparto el code de Git Hub para analizar su código:{" "}
+          Aquí el codigo en Github para su análisis:{" "}
           <span className="Oculto">
             <a target="_blank" href="https://github.com/SnowMoon272/PI-Henry-Food" rel="noreferrer">
-              " Git Hub Henry Food "
+              " Github Henry Food "
             </a>
           </span>
           <br />
