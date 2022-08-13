@@ -18,7 +18,7 @@ export const DELETE_RECIPE = "DELETE_RECIPE";
 export function getRecipes() {
   return async (dispatch) => {
     try {
-      const json = await axios.get("http://localhost:3001/recipes");
+      const json = await axios.get("/recipes");
       return dispatch({
         type: GET_RECIPES,
         payload: json.data,
@@ -32,14 +32,15 @@ export function getRecipes() {
 export function getTitleRecipes(title) {
   return async (dispatch) => {
     try {
-      const json = await axios.get(`http://localhost:3001/recipes?name=${title}`);
+      const json = await axios.get(`/recipes?name=${title}`);
       return dispatch({
         type: GET_TITLE_RECIPES,
         payload: json.data,
       });
     } catch (error) {
-      window.location.replace("http://localhost:3000/error404");
-      throw new Error(error);
+      window.location.href === "http://localhost:3000/home"
+        ? window.location.replace("http://localhost:3000/error404")
+        : alert("Recipe not found");
     }
   };
 }
@@ -61,7 +62,7 @@ export function getDetails(id) {
 export function deleteRecipe(id) {
   return async (dispatch) => {
     try {
-      const json = await axios.delete(`http://localhost:3001/recipeDlt?idDelete=${id}`);
+      const json = await axios.delete(`/recipeDlt?idDelete=${id}`);
       return dispatch({
         type: DELETE_RECIPE,
         payload: json.data,
@@ -77,7 +78,7 @@ export function deleteRecipe(id) {
 export function getDiets() {
   return (dispatch) => {
     axios
-      .get("http://localhost:3001/diets")
+      .get("/diets")
       .then((response) => {
         dispatch({
           type: GET_DIETS,
@@ -93,7 +94,7 @@ export function getDiets() {
 export function postRecipe(payload) {
   return (dispatch) => {
     axios
-      .post("http://localhost:3001/recipe", payload)
+      .post("/recipe", payload)
       .then((response) => {
         return response;
       })
@@ -106,7 +107,7 @@ export function postRecipe(payload) {
 export function filterByDbApi(swich) {
   return (dispatch) => {
     axios
-      .get(`http://localhost:3001/recipesDB?type=${swich}`)
+      .get(`/recipesDB?type=${swich}`)
       .then((response) => {
         dispatch({
           type: GET_RECIPES_DB_API,
