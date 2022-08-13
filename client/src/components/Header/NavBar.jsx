@@ -52,7 +52,8 @@ function NavBar({ paginado }) {
         <ImgStyle src={LGimg} alt="Logo" />
       </LinkStayled>
       <nav>
-        {url === "http://localhost:3000/home" ? (
+        {/* {url === "http://localhost:3000/home" ? ( @Remplazar esta linea si se esta en local */}
+        {url === "https://pi-henry-food-gold.vercel.app/home" ? (
           <SerachBar paginado={paginado} />
         ) : (
           <LinkStayled ret to="/home">

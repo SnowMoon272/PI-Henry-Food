@@ -61,9 +61,13 @@ const HeaderStyle = styled.header`
       color: rgb(228, 175, 0);
     }
   }
-  & .Oculto {
-    color: black;
-    background: black;
+
+  & .Oculto a {
+    color: #be9c15;
+    border-radius: 10px;
+    text-decoration: underline;
+    padding: 2px 10px;
+    font-weight: bold;
   }
 
   & .Span {
@@ -109,7 +113,12 @@ export default function About() {
         </p>
         <p>
           Aquí comparto el code de Git Hub para analizar su código:{" "}
-          <span className="Oculto">xxxx-xxxx-xxxx-xxxx</span> <br />
+          <span className="Oculto">
+            <a target="_blank" href="https://github.com/SnowMoon272/PI-Henry-Food" rel="noreferrer">
+              " Git Hub Henry Food "
+            </a>
+          </span>
+          <br />
           Gracias por visitar mi sitio. Att: <span className="Span">Manuel S.</span> <br /> Email:{" "}
           <span className="Span">CastielAltair0027@outlook.com</span>
           <br />
