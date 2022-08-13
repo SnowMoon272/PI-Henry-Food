@@ -40,7 +40,7 @@ export function getTitleRecipes(title) {
       });
     } catch (error) {
       window.location.href === "http://localhost:3000/home"
-        ? window.location.replace("http://localhost:3000/error404")
+        ? window.location.replace("https://pi-henry-food-gold.vercel.app/error404")
         : alert("Recipe not found");
     }
   };
@@ -49,7 +49,7 @@ export function getTitleRecipes(title) {
 export function getDetails(id) {
   return async (dispatch) => {
     try {
-      const json = await axios.get(`http://localhost:3001/recipes/${id}`);
+      const json = await axios.get(`/recipes/${id}`);
       return dispatch({
         type: GET_DETAILS,
         payload: json.data,

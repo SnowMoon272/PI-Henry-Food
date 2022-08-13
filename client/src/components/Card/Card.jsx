@@ -85,14 +85,15 @@ function Card({ title, image, diets, healthScore, vegetarian, id }) {
       <div>
         <h2>{title}</h2>
         <h3>
-          {url === "http://localhost:3000/recipe"
+          {url === "http://localhost:3000/recipe" || "https://pi-henry-food-gold.vercel.app/recipe"
             ? diets.map((diet) => {
                 return ` ${diet.charAt(0).toUpperCase() + diet.slice(1)} |`;
               })
             : getDiets()}
         </h3>
         <h3>{`Health Score :  ${healthScore}%`}</h3>
-        {url !== "http://localhost:3000/recipe" ? (
+        {url !== "http://localhost:3000/recipe" ||
+        "https://pi-henry-food-gold.vercel.app/recipe" ? (
           <LinkStayled to={`/detail/${id}`}>
             <button id="BTN-CArd" type="button">
               Learn More
