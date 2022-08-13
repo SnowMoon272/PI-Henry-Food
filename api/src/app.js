@@ -27,9 +27,9 @@ server.use((req, res, next) => {
 server.use("/", routes);
 
 server.use((err, req, res) => {
-  const status = err.status || 500;
+  const statust = err.status || 500;
   const message = err.message || err;
-  res.status(status).send(message);
+  return res.status(statust).send(message);
 });
 
 module.exports = server;
